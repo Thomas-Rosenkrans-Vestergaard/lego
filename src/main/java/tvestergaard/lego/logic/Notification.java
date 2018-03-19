@@ -1,6 +1,6 @@
 package tvestergaard.lego.logic;
 
-import tvestergaard.lego.presensation.Notifications;
+import tvestergaard.lego.presentation.Notifications;
 
 import java.util.Objects;
 

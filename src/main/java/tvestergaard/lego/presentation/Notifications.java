@@ -1,4 +1,4 @@
-package tvestergaard.lego.presensation;
+package tvestergaard.lego.presentation;
 
 import tvestergaard.lego.logic.Notification;
 

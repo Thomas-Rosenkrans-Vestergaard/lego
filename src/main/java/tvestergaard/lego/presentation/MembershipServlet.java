@@ -1,4 +1,4 @@
-package tvestergaard.lego.presensation;
+package tvestergaard.lego.presentation;
 
 import tvestergaard.lego.database.members.EmailCollisionException;
 import tvestergaard.lego.database.members.InvalidEmailException;
@@ -62,7 +62,7 @@ public class MembershipServlet extends HttpServlet
 
                 notifications.success("You were successfully logged in.");
                 req.getSession().setAttribute("member", member);
-                resp.sendRedirect("profile");
+                resp.sendRedirect(onSuccess(req));
                 return;
             }
 
@@ -70,13 +70,13 @@ public class MembershipServlet extends HttpServlet
                 Member member = memberFacade.register(req.getParameter("email"), req.getParameter("password"));
                 if (member == null) {
                     notifications.error("An error occurred, your user account was not created.");
-                    resp.sendRedirect("member");
+                    resp.sendRedirect("membership");
                     return;
                 }
 
                 notifications.success("Your user account was successfully created.");
                 req.getSession().setAttribute("member", member);
-                resp.sendRedirect("profile");
+                resp.sendRedirect(onSuccess(req));
             }
 
         } catch (InvalidEmailException e) {
@@ -86,5 +86,18 @@ public class MembershipServlet extends HttpServlet
             notifications.error("The provided email address is already in use on our site.");
             resp.sendRedirect("member");
         }
+    }
+
+    /**
+     * Returns the page to redirect to on successful registration or login.
+     *
+     * @param request The request sent.
+     * @return The page to redirect to on success.
+     */
+    private String onSuccess(HttpServletRequest request)
+    {
+        String from = request.getParameter("from");
+
+        return from == null ? "profile" : from;
     }
 }
