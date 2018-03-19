@@ -20,6 +20,36 @@
     </div>
 </div>
 <div class="row section">
+    <div class="row col s12 no-padding">
+        <div class="row">
+            <div class="col s12">
+                <h4>Access user account.</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                    Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
+                    amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            </div>
+        </div>
+        <form class="row" action="membership" method="POST">
+            <input type="hidden" name="action" value="login">
+            <div class="input-field col s12">
+                <input type="email" id="login-email-input" class="validate" name="email" data-length="255" required>
+                <label for="login-email-input">Email</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="password" id="login-password-input" name="password" class="validate" required>
+                <label for="login-password-input">Password</label>
+            </div>
+            <div class="input-field col s12">
+                <input class="button-submit btn-large" type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row section">
     <div class="col s12 no-padding">
         <div class="row">
             <div class="col s12">
@@ -50,36 +80,6 @@
             </div>
             <div class="input-field col s12">
                 <input class="button-submit btn-large" type="submit" value="Create account">
-            </div>
-        </form>
-    </div>
-</div>
-<div class="row section">
-    <div class="row col s12 no-padding">
-        <div class="row">
-            <div class="col s12">
-                <h4>Access user account.</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                    Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-                    amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-            </div>
-        </div>
-        <form class="row" action="membership" method="POST">
-            <input type="hidden" name="action" value="login">
-            <div class="input-field col s12">
-                <input type="email" id="login-email-input" class="validate" name="email" data-length="255" required>
-                <label for="login-email-input">Email</label>
-            </div>
-            <div class="input-field col s12">
-                <input type="password" id="login-password-input" name="password" class="validate" required>
-                <label for="login-password-input">Password</label>
-            </div>
-            <div class="input-field col s12">
-                <input class="button-submit btn-large" type="submit" value="Login">
             </div>
         </form>
     </div>
