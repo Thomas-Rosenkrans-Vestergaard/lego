@@ -1,10 +1,13 @@
 package tvestergaard.lego.logic;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
+import tvestergaard.lego.database.members.MemberDAO;
+import tvestergaard.lego.database.members.MysqlMemberDAO;
 
 public class ProductionConnection
 {
     private static MysqlDataSource source;
+    private static MemberDAO       memberDAO;
 
     public static MysqlDataSource source()
     {
@@ -15,5 +18,14 @@ public class ProductionConnection
         }
 
         return source;
+    }
+
+    public static MemberDAO memberDAO()
+    {
+        if (memberDAO == null) {
+            memberDAO = new MysqlMemberDAO(source());
+        }
+
+        return memberDAO;
     }
 }

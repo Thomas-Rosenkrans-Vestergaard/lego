@@ -22,6 +22,7 @@ public class HouseServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+        Presentation.notifications(req);
         req.getRequestDispatcher("/WEB-INF/house.jsp").forward(req, resp);
     }
 }

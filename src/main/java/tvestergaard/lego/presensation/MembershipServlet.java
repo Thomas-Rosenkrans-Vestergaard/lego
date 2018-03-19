@@ -4,7 +4,7 @@ import tvestergaard.lego.database.members.EmailCollisionException;
 import tvestergaard.lego.database.members.InvalidEmailException;
 import tvestergaard.lego.database.members.Member;
 import tvestergaard.lego.logic.MemberFacade;
-import tvestergaard.lego.logic.Notifications;
+import tvestergaard.lego.logic.ProductionConnection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/member")
-public class MemberServlet extends HttpServlet
+@WebServlet(urlPatterns = "/membership")
+public class MembershipServlet extends HttpServlet
 {
-
-    private static final String ACTION_LOGIN    = "login";
-    private static final String ACTION_REGISTER = "register";
+    private final MemberFacade memberFacade    = new MemberFacade(ProductionConnection.memberDAO());
+    private final String       ACTION_LOGIN    = "login";
+    private final String       ACTION_REGISTER = "register";
 
     /**
      * Renders the /member page, where users can create a user account or log in to an existing user account.
@@ -31,7 +31,8 @@ public class MemberServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        req.getRequestDispatcher("/WEB-INF/member.jsp").forward(req, resp);
+        Presentation.notifications(req);
+        req.getRequestDispatcher("/WEB-INF/membership.jsp").forward(req, resp);
     }
 
     /**
@@ -52,20 +53,21 @@ public class MemberServlet extends HttpServlet
             String action = req.getParameter("action");
 
             if (ACTION_LOGIN.equals(action)) {
-                Member member = MemberFacade.login(req.getParameter("email"), req.getParameter("password"));
+                Member member = memberFacade.login(req.getParameter("email"), req.getParameter("password"));
                 if (member == null) {
                     notifications.error("Incorrect email or password.");
-                    resp.sendRedirect("member");
+                    resp.sendRedirect("membership");
                     return;
                 }
 
+                notifications.success("You were successfully logged in.");
                 req.getSession().setAttribute("member", member);
                 resp.sendRedirect("profile");
                 return;
             }
 
             if (ACTION_REGISTER.equals(action)) {
-                Member member = MemberFacade.register(req.getParameter("email"), req.getParameter("password"));
+                Member member = memberFacade.register(req.getParameter("email"), req.getParameter("password"));
                 if (member == null) {
                     notifications.error("An error occurred, your user account was not created.");
                     resp.sendRedirect("member");

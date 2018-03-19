@@ -4,8 +4,64 @@
     list-style: none;
 }
 
+nav {
+    background: #26a69a;
+}
+
 #container {
-    max-width: 1024px;
-    margin: 0 auto;
     padding: 20px;
+    max-width: 1324px;
+    margin: 0 auto;
+}
+
+#profile-information > li {
+    padding: 20px;
+}
+
+.toast.ERROR {
+    background: red;
+}
+
+.toast.WARNING {
+    background: orange;
+}
+
+#sidenav-trigger {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+}
+
+#sidenav-trigger > i {
+    font-size: 3rem;
+    color: #26a69a;
+}
+
+.toast.SUCCESS {
+    background: #4BB543;
+}
+
+#container {
+    padding-left: 320px;
+}
+
+#sidenav-trigger {
+    display: none;
+}
+
+@media only screen and (max-width: 992px) {
+
+    #container {
+        padding-left: 20px;
+    }
+
+    #sidenav-trigger {
+        display: block;
+    }
+}
+
+.section {
+    background: #eee;
+    padding: 20px !important;
 }

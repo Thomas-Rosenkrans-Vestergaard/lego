@@ -10,4 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<%@ include file="notifications.jspf" %>
+<ul id="slide-out" class="side-nav fixed">
+    <li><a href="home">Home</a></li>
+    <li><a href="membership">Membership</a></li>
+    <li><a href="profile">Profile</a></li>
+</ul>
+<a href="#" data-activates="slide-out" id="sidenav-trigger"><i class="material-icons large">menu</i></a>
+<script>
+    $("#sidenav-trigger").sideNav();
+</script>
 <div id="container">

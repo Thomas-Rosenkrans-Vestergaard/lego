@@ -1,4 +1,6 @@
-package tvestergaard.lego.logic;
+package tvestergaard.lego.presensation;
+
+import tvestergaard.lego.logic.Notification;
 
 import java.util.ArrayDeque;
 import java.util.Iterator;
