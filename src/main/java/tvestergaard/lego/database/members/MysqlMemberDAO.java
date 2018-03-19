@@ -83,13 +83,14 @@ public class MysqlMemberDAO implements MemberDAO
      */
     @Override public Member create(MemberBuilder builder) throws EmailCollisionException
     {
+
+        String email    = builder.getEmail();
+        String password = builder.getPassword();
+        Role   role     = builder.getRole();
+
         String select = "INSERT INTO members (email, password, role) VALUES (?, ?, ?)";
         try (Connection connection = source.getConnection();
              PreparedStatement statement = connection.prepareStatement(select, Statement.RETURN_GENERATED_KEYS)) {
-
-            String email    = builder.getEmail();
-            String password = builder.getPassword();
-            Role   role     = builder.getRole();
 
             statement.setString(1, email);
             statement.setString(2, password);
@@ -102,6 +103,8 @@ public class MysqlMemberDAO implements MemberDAO
             generatedKey.first();
             return select(generatedKey.getInt(1));
 
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new EmailCollisionException(e, email);
         } catch (SQLException e) {
             throw new ApplicationException(e);
         }
