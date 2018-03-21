@@ -1,6 +1,5 @@
 package tvestergaard.lego.logic.building;
 
-import tvestergaard.lego.logic.House;
 import tvestergaard.lego.logic.IllegalHouseDimensionsException;
 
 public class BrickCalculator
@@ -16,6 +15,7 @@ public class BrickCalculator
     private final int LEFT  = 2;
     private final int RIGHT = 3;
     private final int BACK  = 4;
+
 
     public House calculate(int width, int height, int depth, int door, int window) throws IllegalHouseDimensionsException
     {

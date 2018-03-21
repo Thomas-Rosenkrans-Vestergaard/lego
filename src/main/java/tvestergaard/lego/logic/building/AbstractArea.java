@@ -3,10 +3,10 @@ package tvestergaard.lego.logic.building;
 public class AbstractArea implements Area
 {
 
-    protected final int height;
     protected final int width;
+    protected final int height;
 
-    public AbstractArea(int height, int width)
+    public AbstractArea(int width, int height)
     {
         assert height >= 0;
         assert width >= 0;

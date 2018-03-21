@@ -1,6 +1,6 @@
 package tvestergaard.lego.logic.building;
 
-public enum Direction
+public enum Side
 {
     FRONT,
     LEFT,
