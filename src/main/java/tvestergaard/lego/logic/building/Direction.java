@@ -1,4 +1,4 @@
-package tvestergaard.lego.logic;
+package tvestergaard.lego.logic.building;
 
 public enum Direction
 {

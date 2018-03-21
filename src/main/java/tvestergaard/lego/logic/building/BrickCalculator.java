@@ -1,4 +1,7 @@
-package tvestergaard.lego.logic;
+package tvestergaard.lego.logic.building;
+
+import tvestergaard.lego.logic.House;
+import tvestergaard.lego.logic.IllegalHouseDimensionsException;
 
 public class BrickCalculator
 {
@@ -22,5 +25,7 @@ public class BrickCalculator
         if (door == NONE && window == NONE && width % 6 == 0 && depth % 6 == 0) {
             
         }
+
+        return null;
     }
 }

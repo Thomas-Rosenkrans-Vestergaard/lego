@@ -1,6 +1,6 @@
 package tvestergaard.lego.presentation;
 
-import tvestergaard.lego.logic.BrickCalculator;
+import tvestergaard.lego.logic.building.BrickCalculator;
 import tvestergaard.lego.logic.House;
 import tvestergaard.lego.logic.IllegalHouseDimensionsException;
 
