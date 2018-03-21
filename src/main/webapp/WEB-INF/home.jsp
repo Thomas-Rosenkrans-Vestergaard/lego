@@ -61,52 +61,54 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Chose the side where the door is to be placed.</p>
-        </div>
-    </div>
     <div class="row" id="door-row">
-        <div class="col s12">
-            <p>
-                <input class="door-input" name="door" type="radio" value="1" id="door-front" required/>
-                <label for="door-front">Front</label>
-            </p>
-            <p>
-                <input class="door-input" name="door" type="radio" value="2" id="door-left" required/>
-                <label for="door-left">Left</label>
-            </p>
-            <p>
-                <input class="door-input" name="door" type="radio" value="3" id="door-right" required/>
-                <label for="door-right">Right</label>
-            </p>
-            <p>
-                <input class="door-input" name="door" type="radio" value="4" id="door-back" required/>
-                <label for="door-back">Back</label>
-            </p>
+        <div class="row">
+            <div class="col s12">
+                <p>Chose the side where the door is to be placed.</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Chose the position of the door on the chosen side.</p>
+        <div class="row">
+            <div class="col s12">
+                <p>
+                    <input class="door-input" name="door" type="radio" value="1" id="door-front" required/>
+                    <label for="door-front">Front</label>
+                </p>
+                <p>
+                    <input class="door-input" name="door" type="radio" value="2" id="door-left" required/>
+                    <label for="door-left">Left</label>
+                </p>
+                <p>
+                    <input class="door-input" name="door" type="radio" value="3" id="door-right" required/>
+                    <label for="door-right">Right</label>
+                </p>
+                <p>
+                    <input class="door-input" name="door" type="radio" value="4" id="door-back" required/>
+                    <label for="door-back">Back</label>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="input-field col s12">
-        <input id="door-x" type="number" class="validate door-input" name="depth" min="1" required>
-        <label for="door-x">The x position of the door (lower left corner)</label>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Chose the dimensions of the door on the chosen side.</p>
+        <div class="row">
+            <div class="col s12">
+                <p>Chose the position of the door on the chosen side.</p>
+            </div>
         </div>
-    </div>
-    <div class="input-field col s12 l6">
-        <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" required>
-        <label for="door-width">The width of the door (in dots)</label>
-    </div>
-    <div class="input-field col s12 l6">
-        <input id="door-height" type="number" class="validate door-input" name="depth" value="8" min="1" required>
-        <label for="door-height">The width of the door (in bricks)</label>
+        <div class="input-field col s12">
+            <input id="door-x" type="number" class="validate door-input" name="depth" min="1" required>
+            <label for="door-x">The x position of the door (lower left corner)</label>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <p>Chose the dimensions of the door on the chosen side.</p>
+            </div>
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" required>
+            <label for="door-width">The width of the door (in dots)</label>
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="door-height" type="number" class="validate door-input" name="depth" value="8" min="1" required>
+            <label for="door-height">The width of the door (in bricks)</label>
+        </div>
     </div>
     <div class="row">
         <div class="col s12">
@@ -125,56 +127,59 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Chose the side where the window is to be placed.</p>
-        </div>
-    </div>
     <div class="row" id="window-row">
-        <div class="col s12">
-            <p>
-                <input class="window-input" name="window" type="radio" value="1" id="window-front" required/>
-                <label for="window-front">Front</label>
-            </p>
-            <p>
-                <input class="window-input" name="window" type="radio" value="2" id="window-left" required/>
-                <label for="window-left">Left</label>
-            </p>
-            <p>
-                <input class="window-input" name="window" type="radio" value="3" id="window-right" required/>
-                <label for="window-right">Right</label>
-            </p>
-            <p>
-                <input class="window-input" name="window" type="radio" value="4" id="window-back" required/>
-                <label for="window-back">Back</label>
-            </p>
+        <div class="row">
+            <div class="col s12">
+                <p>Chose the side where the window is to be placed.</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Chose the position of the window on the chosen side.</p>
+        <div class="row">
+            <div class="col s12">
+                <p>
+                    <input class="window-input" name="window" type="radio" value="1" id="window-front" required/>
+                    <label for="window-front">Front</label>
+                </p>
+                <p>
+                    <input class="window-input" name="window" type="radio" value="2" id="window-left" required/>
+                    <label for="window-left">Left</label>
+                </p>
+                <p>
+                    <input class="window-input" name="window" type="radio" value="3" id="window-right" required/>
+                    <label for="window-right">Right</label>
+                </p>
+                <p>
+                    <input class="window-input" name="window" type="radio" value="4" id="window-back" required/>
+                    <label for="window-back">Back</label>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="input-field col s12 l6">
-        <input id="window-x" type="number" class="validate window-input" name="depth" min="1" required>
-        <label for="window-x">The x position of the window (lower left corner)</label>
-    </div>
-    <div class="input-field col s12 l6">
-        <input id="window-y" type="number" class="validate window-input" name="window-y" value="1" min="8" required>
-        <label for="window-y">The y position of the window (lower left corner)</label>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <p>Chose the dimensions of the window on the chosen side.</p>
+        <div class="row">
+            <div class="col s12">
+                <p>Chose the position of the window on the chosen side.</p>
+            </div>
         </div>
-    </div>
-    <div class="input-field col s12 l6">
-        <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" required>
-        <label for="window-width">The width of the window (in dots)</label>
-    </div>
-    <div class="input-field col s12 l6">
-        <input id="window-height" type="number" class="validate window-input" name="depth" value="8" min="1" required>
-        <label for="window-height">The width of the window (in bricks)</label>
+        <div class="input-field col s12 l6">
+            <input id="window-x" type="number" class="validate window-input" name="depth" min="1" required>
+            <label for="window-x">The x position of the window (lower left corner)</label>
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="window-y" type="number" class="validate window-input" name="window-y" value="1" min="8" required>
+            <label for="window-y">The y position of the window (lower left corner)</label>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <p>Chose the dimensions of the window on the chosen side.</p>
+            </div>
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" required>
+            <label for="window-width">The width of the window (in dots)</label>
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="window-height" type="number" class="validate window-input" name="depth" value="8" min="1"
+                   required>
+            <label for="window-height">The width of the window (in bricks)</label>
+        </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
