@@ -51,11 +51,6 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <p>Chose the side where the door is to be placed.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
             <div class="switch">
                 <label>
                     Off
@@ -64,6 +59,11 @@
                     On
                 </label>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p>Chose the side where the door is to be placed.</p>
         </div>
     </div>
     <div class="row" id="door-row">
@@ -88,12 +88,29 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <h4>Window</h4>
+            <p>Chose the position of the door on the chosen side.</p>
         </div>
+    </div>
+    <div class="input-field col s12">
+        <input id="door-x" type="number" class="validate door-input" name="depth" min="1" required>
+        <label for="door-x">The x position of the door (lower left corner)</label>
     </div>
     <div class="row">
         <div class="col s12">
-            <p>Chose the side where the window is to be placed.</p>
+            <p>Chose the dimensions of the door on the chosen side.</p>
+        </div>
+    </div>
+    <div class="input-field col s12 l6">
+        <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" required>
+        <label for="door-width">The width of the door (in dots)</label>
+    </div>
+    <div class="input-field col s12 l6">
+        <input id="door-height" type="number" class="validate door-input" name="depth" value="8" min="1" required>
+        <label for="door-height">The width of the door (in bricks)</label>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h4>Window</h4>
         </div>
     </div>
     <div class="row">
@@ -106,6 +123,11 @@
                     On
                 </label>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p>Chose the side where the window is to be placed.</p>
         </div>
     </div>
     <div class="row" id="window-row">
@@ -129,15 +151,36 @@
         </div>
     </div>
     <div class="row">
+        <div class="col s12">
+            <p>Chose the position of the window on the chosen side.</p>
+        </div>
+    </div>
+    <div class="input-field col s12 l6">
+        <input id="window-x" type="number" class="validate window-input" name="depth" min="1" required>
+        <label for="window-x">The x position of the window (lower left corner)</label>
+    </div>
+    <div class="input-field col s12 l6">
+        <input id="window-y" type="number" class="validate window-input" name="window-y" value="1" min="8" required>
+        <label for="window-y">The y position of the window (lower left corner)</label>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p>Chose the dimensions of the window on the chosen side.</p>
+        </div>
+    </div>
+    <div class="input-field col s12 l6">
+        <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" required>
+        <label for="window-width">The width of the window (in dots)</label>
+    </div>
+    <div class="input-field col s12 l6">
+        <input id="window-height" type="number" class="validate window-input" name="depth" value="8" min="1" required>
+        <label for="window-height">The width of the window (in bricks)</label>
+    </div>
+    <div class="row">
         <div class="input-field col s12">
             <button class="btn-large waves-effect waves-light" type="submit">
                 Submit <i class="material-icons right">send</i>
             </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 preview-canvas">
-
         </div>
     </div>
 </form>
