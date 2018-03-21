@@ -21,4 +21,13 @@ public class Presentation
 
         return (Notifications) o;
     }
+
+    public static String referer(HttpServletRequest request, String alternative)
+    {
+        String referer = request.getHeader("referer");
+        if (referer == null)
+            return alternative;
+
+        return referer;
+    }
 }
