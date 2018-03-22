@@ -12,7 +12,7 @@ public class HalfPatternBricklayer implements Bricklayer
     {
         Bricklayer          bricklayer          = new HalfPatternBricklayer();
         Door                door                = new Door(Square.of(4, 3), Position.of(2, 0), Side.FRONT);
-        Window              window              = new Window(Square.of(4, 2), Position.of(6, 1), Side.FRONT);
+        Window              window              = new Window(Square.of(4, 2), Position.of(8, 1), Side.FRONT);
         HouseSpecifications houseSpecifications = new HouseSpecifications(new Cube(20, 5, 15), door, window);
         House               house               = bricklayer.lay(houseSpecifications);
         render(house, houseSpecifications);
@@ -30,59 +30,68 @@ public class HalfPatternBricklayer implements Bricklayer
 
     private Wall buildWall(HouseSpecifications specifications, Side side)
     {
-        WallBuilder builder    = new WallBuilder();
-        int         currentRow = 0;
+        WallBuilder builder = new WallBuilder();
+        while (builder.getCurrentPosition().y < specifications.dimensions.height) {
 
-        while (currentRow < specifications.dimensions.height) {
-
-            int width        = specifications.dimensions.width - BRICK_WIDTH;
-            int currentIndex = 0;
-            if (currentRow % 2 != 0) {
+            int width = specifications.dimensions.width - BRICK_WIDTH;
+            if (builder.getCurrentPosition().y % 2 != 0) {
                 builder.move(2);
                 width += BRICK_WIDTH;
-                currentIndex += 2;
             }
 
-            while (currentIndex < width) {
+            while (builder.getCurrentPosition().x < width) {
+                Position position = builder.getCurrentPosition();
 
-                if (currentIndex + BRICK_LARGE <= width && notBlocked(currentIndex, currentRow, BRICK_LARGE, side, specifications)) {
-                    builder.place(BRICK_LARGE);
-                    currentIndex += BRICK_LARGE;
+                if (!fits(1, position, side, specifications.door.side, specifications.door)) {
+                    builder.move(specifications.door.square.width);
                     continue;
                 }
 
-                if (currentIndex + BRICK_MEDIUM <= width && notBlocked(currentIndex, currentRow, BRICK_MEDIUM, side, specifications)) {
-                    builder.place(BRICK_MEDIUM);
-                    currentIndex += BRICK_MEDIUM;
+                if (!fits(1, position, side, specifications.window.side, specifications.window)) {
+                    builder.move(specifications.window.square.width);
                     continue;
                 }
 
-                if (currentIndex + BRICK_SMALL <= width && notBlocked(currentIndex, currentRow, BRICK_SMALL, side, specifications)) {
-                    builder.place(BRICK_SMALL);
-                    currentIndex += BRICK_SMALL;
+                if (place(builder, BRICK_LARGE, width, side, specifications))
                     continue;
-                }
+                if (place(builder, BRICK_MEDIUM, width, side, specifications))
+                    continue;
+                if (place(builder, BRICK_SMALL, width, side, specifications))
+                    continue;
+
+                builder.move(1);
             }
 
-            currentRow++;
             builder.up();
         }
 
         return builder.build();
     }
 
-    private boolean notBlocked(int currentIndex, int row, int brick, Side side, HouseSpecifications specifications)
+    private boolean place(WallBuilder builder, int brick, int width, Side side, HouseSpecifications specifications)
     {
-        if (specifications.door == null && specifications.window == null)
-            return false;
+        Position position = builder.getCurrentPosition();
+        if (position.x + brick <= width) {
 
+            boolean fitsWindow = fits(brick, position, side, specifications.window.side, specifications.window);
+            boolean fitsDoor   = fits(brick, position, side, specifications.door.side, specifications.door);
+
+            if (fitsWindow && fitsDoor) {
+                builder.place(brick);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean fits(int brick, Position position, Side wallSide, Side areaSide, PositionedSquare positionedSquare)
+    {
         for (int l = 0; l < brick; l++) {
-            Position position = Position.of(currentIndex + l, row);
-
-            boolean check = (specifications.window == null || specifications.window.side != side || !specifications.window.contains(position)) &&
-                            (specifications.door == null || specifications.door.side != side || !specifications.door.contains(position));
-            if (!check)
+            Position p = new Position(position.x + l, position.y);
+            if (!(positionedSquare == null || wallSide != areaSide || !positionedSquare.contains(p))) {
                 return false;
+            }
         }
 
         return true;
@@ -90,41 +99,51 @@ public class HalfPatternBricklayer implements Bricklayer
 
     private static void render(House house, HouseSpecifications houseSpecifications)
     {
-        System.out.println(houseSpecifications.dimensions.width);
-        System.out.println(houseSpecifications.dimensions.height);
-        System.out.println(house.getFront().getBricks().size());
-
+        System.out.println("Front");
         System.out.println(house.getFront().getBricks());
+        render(house.getFront(), houseSpecifications);
+
+        System.out.println("Back");
         System.out.println(house.getBack().getBricks());
+        render(house.getBack(), houseSpecifications);
+
+        System.out.println("Left");
         System.out.println(house.getLeft().getBricks());
+        render(house.getLeft(), houseSpecifications);
+
+        System.out.println("Right");
         System.out.println(house.getRight().getBricks());
+        render(house.getRight(), houseSpecifications);
+    }
 
-        char[][] chars = new char[houseSpecifications.dimensions.width][houseSpecifications.dimensions.height];
+    private static void render(Wall wall, HouseSpecifications specifications)
+    {
 
-        for (int x = 0; x < houseSpecifications.dimensions.width; x++) {
-            for (int y = 0; y < houseSpecifications.dimensions.height; y++) {
+
+        char[][] chars = new char[specifications.dimensions.width][specifications.dimensions.height];
+
+        for (int x = 0; x < specifications.dimensions.width; x++) {
+            for (int y = 0; y < specifications.dimensions.height; y++) {
                 chars[x][y] = '_';
             }
         }
 
-        System.out.println("Front");
-        for (Brick brick : house.getFront().getBricks()) {
+        for (Brick brick : wall.getBricks()) {
             int x = brick.position.getX();
             int y = brick.position.getY();
-            System.out.println("x=" + x);
-            System.out.println("y=" + y);
             for (int l = 0; l < brick.length; l++) {
                 chars[x + l][y] = 'X';
             }
         }
 
-        for (int y = houseSpecifications.dimensions.height - 1; y >= 0; y--) {
-            for (int x = 0; x < houseSpecifications.dimensions.width; x++) {
+        for (int y = specifications.dimensions.height - 1; y >= 0; y--) {
+            for (int x = 0; x < specifications.dimensions.width; x++) {
                 char character = chars[x][y];
                 System.out.print(character);
             }
 
             System.out.println();
         }
+
     }
 }
