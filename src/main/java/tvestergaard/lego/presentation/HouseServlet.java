@@ -1,7 +1,7 @@
 package tvestergaard.lego.presentation;
 
 import tvestergaard.lego.logic.building.BrickCalculator;
-import tvestergaard.lego.logic.building.House;
+import tvestergaard.lego.logic.building.HouseSpecifications;
 import tvestergaard.lego.logic.IllegalHouseDimensionsException;
 
 import javax.servlet.ServletException;
@@ -70,8 +70,8 @@ public class HouseServlet extends HttpServlet
 
         try {
 
-            BrickCalculator calculator = new BrickCalculator();
-            House           house      = calculator.calculate(width, height, depth, door, window);
+            BrickCalculator     calculator = new BrickCalculator();
+            HouseSpecifications house      = calculator.calculate(width, height, depth, door, window);
 
         } catch (IllegalHouseDimensionsException e) {
 
