@@ -27,8 +27,8 @@ public class Window extends PositionedSquare
         if (dimensions.width < 1)
             throw new InvalidWindowException("The width of the Window must exceed 0.", this);
 
-        if (position.y <= 0)
-            throw new InvalidWindowException("Window position.y must = 0", this);
+        if (position.y != 0)
+            throw new InvalidWindowException("Window position.y must != 0", this);
 
         if (position.x < 2)
             throw new InvalidWindowException("Window position.x must not be < 2.", this);

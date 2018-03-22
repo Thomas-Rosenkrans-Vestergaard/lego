@@ -25,7 +25,7 @@ public class HalfPatternBricklayer implements Bricklayer
         Wall right = buildWall(specifications, Side.RIGHT);
         Wall left  = buildWall(specifications, Side.LEFT);
 
-        return new House(front, back, right, left);
+        return new House(specifications.dimensions, specifications.door, specifications.window, front, back, right, left);
     }
 
     private Wall buildWall(HouseSpecification specifications, Side side)
@@ -42,12 +42,12 @@ public class HalfPatternBricklayer implements Bricklayer
             while (builder.getCurrentPosition().x < width) {
                 Position position = builder.getCurrentPosition();
 
-                if (!fits(1, position, side, specifications.door.side, specifications.door)) {
+                if (specifications.door != null && !fits(1, position, side, specifications.door.side, specifications.door)) {
                     builder.move(specifications.door.square.width);
                     continue;
                 }
 
-                if (!fits(1, position, side, specifications.window.side, specifications.window)) {
+                if (specifications.window != null && !fits(1, position, side, specifications.window.side, specifications.window)) {
                     builder.move(specifications.window.square.width);
                     continue;
                 }
@@ -73,8 +73,8 @@ public class HalfPatternBricklayer implements Bricklayer
         Position position = builder.getCurrentPosition();
         if (position.x + brick <= width) {
 
-            boolean fitsWindow = fits(brick, position, side, specifications.window.side, specifications.window);
-            boolean fitsDoor   = fits(brick, position, side, specifications.door.side, specifications.door);
+            boolean fitsWindow = specifications.window == null || fits(brick, position, side, specifications.window.side, specifications.window);
+            boolean fitsDoor   = specifications.door == null || fits(brick, position, side, specifications.door.side, specifications.door);
 
             if (fitsWindow && fitsDoor) {
                 builder.place(brick);
