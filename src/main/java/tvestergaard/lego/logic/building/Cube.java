@@ -96,7 +96,7 @@ public class Cube
 
     @Override public String toString()
     {
-        return "Volume{" +
+        return "Cube{" +
                 "width=" + width +
                 ", height=" + height +
                 ", depth=" + depth +

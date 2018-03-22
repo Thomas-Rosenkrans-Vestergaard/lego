@@ -22,10 +22,10 @@ public class Window extends PositionedSquare
         super(position, dimensions);
 
         if (dimensions.height < 1)
-            throw new InvalidWindowException("The height of the Window must exceed 0.", this);
+            throw new InvalidWindowException("The height of the window must exceed 0.", this);
 
         if (dimensions.width < 1)
-            throw new InvalidWindowException("The width of the Window must exceed 0.", this);
+            throw new InvalidWindowException("The width of the window must exceed 0.", this);
 
         if (position.y < 1)
             throw new InvalidWindowException("Window position.y must not be less than 1", this);
