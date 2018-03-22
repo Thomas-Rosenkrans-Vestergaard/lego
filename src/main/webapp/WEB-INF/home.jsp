@@ -71,7 +71,8 @@
         <div class="row">
             <div class="col s12">
                 <p>
-                    <input class="door-input" name="door-side" type="radio" value="1" id="door-front" checked="checked" required/>
+                    <input class="door-input" name="door-side" type="radio" value="1" id="door-front" checked="checked"
+                           required/>
                     <label for="door-front">Front</label>
                 </p>
                 <p>
@@ -103,11 +104,13 @@
             </div>
         </div>
         <div class="input-field col s12 l6">
-            <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" value="4" required>
+            <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" value="4"
+                   required>
             <label for="door-width">The width of the door (in dots)</label>
         </div>
         <div class="input-field col s12 l6">
-            <input id="door-height" type="number" class="validate door-input" name="door-height" min="1" value="3" required>
+            <input id="door-height" type="number" class="validate door-input" name="door-height" min="1" value="3"
+                   required>
             <label for="door-height">The height of the door (in bricks)</label>
         </div>
     </div>
@@ -137,7 +140,8 @@
         <div class="row">
             <div class="col s12">
                 <p>
-                    <input class="window-input" name="window-side" type="radio" value="1" id="window-front" checked="checked" required/>
+                    <input class="window-input" name="window-side" type="radio" value="1" id="window-front"
+                           checked="checked" required/>
                     <label for="window-front">Front</label>
                 </p>
                 <p>
@@ -173,7 +177,8 @@
             </div>
         </div>
         <div class="input-field col s12 l6">
-            <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" value="4" required>
+            <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" value="4"
+                   required>
             <label for="window-width">The width of the window (in dots)</label>
         </div>
         <div class="input-field col s12 l6">
@@ -190,12 +195,12 @@
         </div>
     </div>
     <h4>Front</h4>
-    <canvas class="house-canvas" id="front-canvas"></canvas>
+    <canvas width="10024px" class="house-canvas" id="front-canvas"></canvas>
     <h4>Back</h4>
-    <canvas class="house-canvas" id="back-canvas"></canvas>
+    <canvas width="10024px" class="house-canvas" id="back-canvas"></canvas>
     <h4>Left</h4>
-    <canvas class="house-canvas" id="left-canvas"></canvas>
+    <canvas width="10024px" class="house-canvas" id="left-canvas"></canvas>
     <h4>Right</h4>
-    <canvas class="house-canvas" id="right-canvas"></canvas>
+    <canvas width="10024px" class="house-canvas" id="right-canvas"></canvas>
 </form>
 <%@ include file="include/bot.jspf" %>

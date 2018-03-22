@@ -29,7 +29,8 @@ $(document).ready(function () {
 
     function update(canvas, wall, width, height) {
         var ctx = canvas.getContext("2d");
-        var unitWidth = canvas.width / width;
+        ctx.translate(0.5, 0.5);
+        var unitWidth = Math.floor(canvas.width / width);
         console.log(unitWidth);
         canvas.height = canvas.width * (height * 2 / width);
         var unitHeight = unitWidth * 2;
