@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col s12">
                 <p>
-                    <input class="door-input" name="door-side" type="radio" value="1" id="door-front" required/>
+                    <input class="door-input" name="door-side" type="radio" value="1" id="door-front" checked="checked" required/>
                     <label for="door-front">Front</label>
                 </p>
                 <p>
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="input-field col s12">
-            <input id="door-x" type="number" class="validate door-input" name="door-x" min="2" required>
+            <input id="door-x" type="number" class="validate door-input" name="door-x" min="2" value="2" required>
             <label for="door-x">The x position of the door (lower left corner)</label>
         </div>
         <div class="row">
@@ -103,11 +103,11 @@
             </div>
         </div>
         <div class="input-field col s12 l6">
-            <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" required>
+            <input id="door-width" type="number" class="validate door-input" name="door-width" min="1" value="4" required>
             <label for="door-width">The width of the door (in dots)</label>
         </div>
         <div class="input-field col s12 l6">
-            <input id="door-height" type="number" class="validate door-input" name="door-height" min="1" required>
+            <input id="door-height" type="number" class="validate door-input" name="door-height" min="1" value="3" required>
             <label for="door-height">The height of the door (in bricks)</label>
         </div>
     </div>
@@ -137,7 +137,7 @@
         <div class="row">
             <div class="col s12">
                 <p>
-                    <input class="window-input" name="window-side" type="radio" value="1" id="window-front" required/>
+                    <input class="window-input" name="window-side" type="radio" value="1" id="window-front" checked="checked" required/>
                     <label for="window-front">Front</label>
                 </p>
                 <p>
@@ -160,7 +160,7 @@
             </div>
         </div>
         <div class="input-field col s12 l6">
-            <input id="window-x" type="number" class="validate window-input" name="window-x" min="2" required>
+            <input id="window-x" type="number" class="validate window-input" name="window-x" min="2" value="8" required>
             <label for="window-x">The x position of the window (lower left corner)</label>
         </div>
         <div class="input-field col s12 l6">
@@ -173,11 +173,11 @@
             </div>
         </div>
         <div class="input-field col s12 l6">
-            <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" required>
+            <input id="window-width" type="number" class="validate window-input" name="window-width" min="1" value="4" required>
             <label for="window-width">The width of the window (in dots)</label>
         </div>
         <div class="input-field col s12 l6">
-            <input id="window-height" type="number" class="validate window-input" name="window-height" min="1"
+            <input id="window-height" type="number" class="validate window-input" name="window-height" min="1" value="2"
                    required>
             <label for="window-height">The height of the window (in bricks)</label>
         </div>

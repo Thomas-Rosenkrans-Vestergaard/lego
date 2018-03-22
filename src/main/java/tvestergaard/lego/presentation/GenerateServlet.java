@@ -61,7 +61,7 @@ public class GenerateServlet extends HttpServlet
             if (parameters.isPresent("window") && parameters.getString("window").equals("on")) {
                 window = new Window(
                         Square.of(parameters.getInt("window-width"), parameters.getInt("window-height")),
-                        Position.of(parameters.getInt("window-x"), 0),
+                        Position.of(parameters.getInt("window-x"), parameters.getInt("window-y")),
                         getSide(parameters.getInt("window-side"))
                 );
             }
