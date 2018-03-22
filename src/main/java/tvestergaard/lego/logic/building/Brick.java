@@ -2,6 +2,9 @@ package tvestergaard.lego.logic.building;
 
 import java.util.Objects;
 
+/**
+ * Represents some {@link Brick} in a {@link Wall}.
+ */
 public class Brick
 {
 
@@ -52,7 +55,7 @@ public class Brick
         if (!(o instanceof Brick)) return false;
         Brick brick = (Brick) o;
         return length == brick.length &&
-                Objects.equals(position, brick.position);
+               Objects.equals(position, brick.position);
     }
 
     @Override public int hashCode()
@@ -63,8 +66,8 @@ public class Brick
     @Override public String toString()
     {
         return "Brick{" +
-                "length=" + length +
-                ", position=" + position +
-                '}';
+               "length=" + length +
+               ", position=" + position +
+               '}';
     }
 }

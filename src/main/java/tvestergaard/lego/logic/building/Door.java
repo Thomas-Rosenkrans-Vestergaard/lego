@@ -1,10 +1,13 @@
 package tvestergaard.lego.logic.building;
 
+/**
+ * Represents some {@link Door} on a {@link House}.
+ */
 public class Door extends PositionedSquare
 {
 
     /**
-     * The side of the {@link HouseSpecifications} to place the {@link Door} on.
+     * The side of the {@link HouseSpecification} to place the {@link Door} on.
      */
     public final Side side;
 
@@ -13,7 +16,7 @@ public class Door extends PositionedSquare
      *
      * @param dimensions The dimensions of the {@link Door} represented by an {@link Square} in two dimensions.
      * @param position   The {@link Position} of the {@link Door} on the chosen {@link Side}.
-     * @param side       The {@link Side} of the {@link HouseSpecifications} where the {@link Door} is located.
+     * @param side       The {@link Side} of the {@link HouseSpecification} where the {@link Door} is located.
      * @throws InvalidDoorException When the arguments provided created an invalid {@link Door}.
      */
     public Door(Square dimensions, Position position, Side side) throws InvalidDoorException
@@ -36,9 +39,9 @@ public class Door extends PositionedSquare
     }
 
     /**
-     * Returns the side of the {@link HouseSpecifications} to place the {@link Door} on.
+     * Returns the side of the {@link HouseSpecification} to place the {@link Door} on.
      *
-     * @return The side of the {@link HouseSpecifications} to place the {@link Door} on.
+     * @return The side of the {@link HouseSpecification} to place the {@link Door} on.
      */
     public Side getSide()
     {

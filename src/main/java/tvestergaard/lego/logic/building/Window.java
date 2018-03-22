@@ -4,7 +4,7 @@ public class Window extends PositionedSquare
 {
 
     /**
-     * The side of the {@link HouseSpecifications} to place the {@link Window} on.
+     * The side of the {@link HouseSpecification} to place the {@link Window} on.
      */
     public final Side side;
 
@@ -13,7 +13,7 @@ public class Window extends PositionedSquare
      *
      * @param dimensions The dimensions of the {@link Window} represented by an {@link Square} in two dimensions.
      * @param position   The {@link Position} of the {@link Window} on the chosen {@link Side}.
-     * @param side       The {@link Side} of the {@link HouseSpecifications} where the {@link Window} is located.
+     * @param side       The {@link Side} of the {@link HouseSpecification} where the {@link Window} is located.
      * @throws InvalidWindowException When the arguments provided created an invalid {@link Window}.
      */
     public Window(Square dimensions, Position position, Side side) throws InvalidWindowException
@@ -37,9 +37,9 @@ public class Window extends PositionedSquare
     }
 
     /**
-     * Returns the side of the {@link HouseSpecifications} to place the {@link Window} on.
+     * Returns the side of the {@link HouseSpecification} to place the {@link Window} on.
      *
-     * @return The side of the {@link HouseSpecifications} to place the {@link Window} on.
+     * @return The side of the {@link HouseSpecification} to place the {@link Window} on.
      */
     public Side getSide()
     {

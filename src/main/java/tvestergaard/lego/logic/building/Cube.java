@@ -3,7 +3,7 @@ package tvestergaard.lego.logic.building;
 import java.util.Objects;
 
 /**
- * Represents a cube in three-dimensional space.
+ * Represents a box in three-dimensional space.
  */
 public class Cube
 {

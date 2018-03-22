@@ -10,15 +10,15 @@ public class HalfPatternBricklayer implements Bricklayer
 
     public static void main(String[] args) throws Exception
     {
-        Bricklayer          bricklayer          = new HalfPatternBricklayer();
-        Door                door                = new Door(Square.of(4, 3), Position.of(2, 0), Side.FRONT);
-        Window              window              = new Window(Square.of(4, 2), Position.of(8, 1), Side.FRONT);
-        HouseSpecifications houseSpecifications = new HouseSpecifications(new Cube(20, 5, 15), door, window);
-        House               house               = bricklayer.lay(houseSpecifications);
-        render(house, houseSpecifications);
+        Bricklayer         bricklayer         = new HalfPatternBricklayer();
+        Door               door               = new Door(Square.of(4, 3), Position.of(2, 0), Side.FRONT);
+        Window             window             = new Window(Square.of(4, 2), Position.of(8, 1), Side.FRONT);
+        HouseSpecification houseSpecification = new HouseSpecification(new Cube(20, 5, 15), door, window);
+        House              house              = bricklayer.lay(houseSpecification);
+        render(house, houseSpecification);
     }
 
-    @Override public House lay(HouseSpecifications specifications)
+    @Override public House lay(HouseSpecification specifications)
     {
         Wall front = buildWall(specifications, Side.FRONT);
         Wall back  = buildWall(specifications, Side.BACK);
@@ -28,7 +28,7 @@ public class HalfPatternBricklayer implements Bricklayer
         return new House(front, back, right, left);
     }
 
-    private Wall buildWall(HouseSpecifications specifications, Side side)
+    private Wall buildWall(HouseSpecification specifications, Side side)
     {
         WallBuilder builder = new WallBuilder();
         while (builder.getCurrentPosition().y < specifications.dimensions.height) {
@@ -68,7 +68,7 @@ public class HalfPatternBricklayer implements Bricklayer
         return builder.build();
     }
 
-    private boolean place(WallBuilder builder, int brick, int width, Side side, HouseSpecifications specifications)
+    private boolean place(WallBuilder builder, int brick, int width, Side side, HouseSpecification specifications)
     {
         Position position = builder.getCurrentPosition();
         if (position.x + brick <= width) {
@@ -97,26 +97,26 @@ public class HalfPatternBricklayer implements Bricklayer
         return true;
     }
 
-    private static void render(House house, HouseSpecifications houseSpecifications)
+    private static void render(House house, HouseSpecification houseSpecification)
     {
         System.out.println("Front");
         System.out.println(house.getFront().getBricks());
-        render(house.getFront(), houseSpecifications);
+        render(house.getFront(), houseSpecification);
 
         System.out.println("Back");
         System.out.println(house.getBack().getBricks());
-        render(house.getBack(), houseSpecifications);
+        render(house.getBack(), houseSpecification);
 
         System.out.println("Left");
         System.out.println(house.getLeft().getBricks());
-        render(house.getLeft(), houseSpecifications);
+        render(house.getLeft(), houseSpecification);
 
         System.out.println("Right");
         System.out.println(house.getRight().getBricks());
-        render(house.getRight(), houseSpecifications);
+        render(house.getRight(), houseSpecification);
     }
 
-    private static void render(Wall wall, HouseSpecifications specifications)
+    private static void render(Wall wall, HouseSpecification specifications)
     {
 
 

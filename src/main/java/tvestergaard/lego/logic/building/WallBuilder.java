@@ -3,23 +3,37 @@ package tvestergaard.lego.logic.building;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class for creating instances of {@link Wall}.
+ */
 public class WallBuilder
 {
 
     /**
-     * The
+     * The {@link Brick}s placed on the {@link Wall} being built.
      */
     private final List<Brick> bricks = new ArrayList<>();
-    private Position position = new Position(0, 0);
-    private int      counter4;
-    private int      counter2;
-    private int      counter1;
 
     /**
-     * Moves the pointer to the next row above the current pointer.
-     *
-     * @param distance
+     * The current pointer on the {@link Wall} being built.
      */
+    private Position position = new Position(0, 0);
+
+    /**
+     * The number of bricks of size four placed on the {@link Wall} being built.
+     */
+    private int fourPieces = 0;
+
+    /**
+     * The number of bricks of size two placed on the {@link Wall} being built.
+     */
+    private int twoPieces = 0;
+
+    /**
+     * The number of bricks of size one placed on the {@link Wall} being built.
+     */
+    private int onePieces = 0;
+
     public void up(int distance)
     {
         position = new Position(0, this.position.y + distance);
@@ -45,16 +59,16 @@ public class WallBuilder
         position = this.position.right(length);
 
         if (length == 4)
-            counter4++;
+            fourPieces++;
         if (length == 2)
-            counter2++;
+            twoPieces++;
         if (length == 1)
-            counter1++;
+            onePieces++;
     }
 
     public Wall build()
     {
-        return new Wall(bricks, counter4, counter2, counter1);
+        return new Wall(bricks, fourPieces, twoPieces, onePieces);
     }
 
     public Position getCurrentPosition()
