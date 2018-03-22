@@ -1,9 +1,5 @@
 package tvestergaard.lego.presentation;
 
-import tvestergaard.lego.logic.building.BrickCalculator;
-import tvestergaard.lego.logic.building.HouseSpecifications;
-import tvestergaard.lego.logic.IllegalHouseDimensionsException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,15 +63,6 @@ public class HouseServlet extends HttpServlet
         int depth  = parameters.getInt(INPUT_DEPTH);
         int door   = parameters.isPresent(INPUT_DOOR) ? parameters.getInt(INPUT_DOOR) : 0;
         int window = parameters.isPresent(INPUT_WINDOW) ? parameters.getInt(INPUT_WINDOW) : 0;
-
-        try {
-
-            BrickCalculator     calculator = new BrickCalculator();
-            HouseSpecifications house      = calculator.calculate(width, height, depth, door, window);
-
-        } catch (IllegalHouseDimensionsException e) {
-
-        }
         req.getRequestDispatcher("/WEB-INF/house.jsp").forward(req, resp);
     }
 }

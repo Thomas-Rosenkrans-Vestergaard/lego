@@ -39,17 +39,28 @@ public class WallBuilder
 
     public void place(int length)
     {
-        if(length != 4 && length != 2 && length != 1)
+        if (length != 4 && length != 2 && length != 1)
             throw new UnsupportedOperationException();
 
         bricks.add(new Brick(length, new Position(x, y)));
 
-        if(length == 4)
-            counter4++;
-        if(length == 2)
-            counter2++;
-        if(length == 1)
-            counter1++;
+        x += length;
 
+        if (length == 4)
+            counter4++;
+        if (length == 2)
+            counter2++;
+        if (length == 1)
+            counter1++;
+    }
+
+    public Wall build()
+    {
+        return new Wall(bricks, counter4, counter2, counter1);
+    }
+
+    public Position getCurrentPosition()
+    {
+        return new Position(x, y);
     }
 }

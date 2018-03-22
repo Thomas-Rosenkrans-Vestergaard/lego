@@ -67,7 +67,7 @@ public class Square
         if (!(o instanceof Square)) return false;
         Square area = (Square) o;
         return width == area.width &&
-                height == area.height;
+               height == area.height;
     }
 
     @Override public int hashCode()
@@ -78,8 +78,8 @@ public class Square
     @Override public String toString()
     {
         return "Area{" +
-                "width=" + width +
-                ", height=" + height +
-                '}';
+               "width=" + width +
+               ", height=" + height +
+               '}';
     }
 }
