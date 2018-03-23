@@ -1,10 +1,15 @@
 package tvestergaard.lego.logic.building;
 
+import tvestergaard.lego.logic.geometry.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper class for creating instances of {@link Wall}.
+ * Helper class for creating instances of {@link Wall}. The class maintains a {@link Position} acting as
+ * the {@code current pointer}. When calling the {@link WallBuilder#place(int)} method, a brick of the provided size
+ * is inserted at the {@code current pointer}. Methods also exists that can move the {@code current pointer} to the right,
+ * or up to begin placing a new row.
  */
 public class WallBuilder
 {
@@ -17,7 +22,7 @@ public class WallBuilder
     /**
      * The current pointer on the {@link Wall} being built.
      */
-    private Position position = new Position(0, 0);
+    private Position currentPointer = new Position(0, 0);
 
     /**
      * The number of bricks of size four placed on the {@link Wall} being built.
@@ -34,29 +39,33 @@ public class WallBuilder
      */
     private int onePieces = 0;
 
-    public void up(int distance)
-    {
-        position = new Position(0, this.position.y + distance);
-    }
-
+    /**
+     * Moves the {@code current pointer} up {@code 1} row to begin a new row of bricks.
+     */
     public void up()
     {
-        up(1);
+        currentPointer = new Position(0, this.currentPointer.y + 1);
     }
 
+    /**
+     * Moves the {@code current pointer} {@code distance} dots to the right.
+     *
+     * @param distance The number of dots to move the {@code current pointer} to the right.
+     */
     public void move(int distance)
     {
-        position = this.position.right(distance);
+        currentPointer = this.currentPointer.right(distance);
     }
 
+    /**
+     * Places a brick of the provided {@code length} at the {@code current pointer}.
+     *
+     * @param length The length of the brick to place at the {@code current pointer}.
+     */
     public void place(int length)
     {
-        if (length != 4 && length != 2 && length != 1)
-            throw new UnsupportedOperationException();
-
-        bricks.add(new Brick(length, position));
-
-        position = this.position.right(length);
+        bricks.add(new Brick(length, currentPointer));
+        currentPointer = this.currentPointer.right(length);
 
         if (length == 4)
             fourPieces++;
@@ -66,13 +75,24 @@ public class WallBuilder
             onePieces++;
     }
 
+    /**
+     * Builds a concrete {@link Wall} from the bricks places through the {@link WallBuilder}.
+     *
+     * @return The resulting instance of {@link Wall},
+     */
     public Wall build()
     {
         return new Wall(bricks, fourPieces, twoPieces, onePieces);
     }
 
-    public Position getCurrentPosition()
+    /**
+     * Returns the {@code current pointer} where new bricks are placed.
+     *
+     * @return the {@code current pointer} where new bricks are placed.
+     * @see WallBuilder#place(int)
+     */
+    public Position getCurrentPointer()
     {
-        return position;
+        return currentPointer;
     }
 }

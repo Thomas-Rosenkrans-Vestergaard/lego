@@ -1,5 +1,7 @@
 package tvestergaard.lego.logic.building;
 
+import tvestergaard.lego.logic.geometry.Cube;
+
 import java.util.Objects;
 
 /**

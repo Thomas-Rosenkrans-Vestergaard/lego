@@ -1,5 +1,7 @@
 package tvestergaard.lego.logic.building;
 
+import tvestergaard.lego.logic.geometry.Cube;
+
 /**
  * A {@link House} built from {@link Brick}s with four {@link Wall} and an optional {@link Door} or {@link Window}.
  */

@@ -2,6 +2,7 @@ package tvestergaard.lego.logic;
 
 import tvestergaard.lego.logic.building.*;
 import tvestergaard.lego.logic.building.IllegalHouseDimensionsException;
+import tvestergaard.lego.logic.geometry.Cube;
 
 public class BrickFacade
 {

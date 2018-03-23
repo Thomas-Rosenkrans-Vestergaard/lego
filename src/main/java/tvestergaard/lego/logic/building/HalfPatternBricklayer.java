@@ -1,5 +1,9 @@
 package tvestergaard.lego.logic.building;
 
+import tvestergaard.lego.logic.geometry.Cube;
+import tvestergaard.lego.logic.geometry.Position;
+import tvestergaard.lego.logic.geometry.PositionedSquare;
+
 public class HalfPatternBricklayer implements Bricklayer
 {
 
@@ -29,11 +33,10 @@ public class HalfPatternBricklayer implements Bricklayer
      *                                         {@link HouseSpecification} collide.
      */
     @Override
-    public House lay(HouseSpecification specifications) throws
-            IllegalHouseDimensionsException,
-            IllegalWindowException,
-            IllegalDoorException,
-            IllegalCollisionException
+    public House lay(HouseSpecification specifications) throws IllegalHouseDimensionsException,
+                                                               IllegalWindowException,
+                                                               IllegalDoorException,
+                                                               IllegalCollisionException
     {
         Wall front = buildWall(specifications, Side.FRONT);
         Wall back  = buildWall(specifications, Side.BACK);
@@ -44,10 +47,10 @@ public class HalfPatternBricklayer implements Bricklayer
     }
 
     public void validateSpecifications(HouseSpecification specification) throws
-            IllegalHouseDimensionsException,
-            IllegalWindowException,
-            IllegalDoorException,
-            IllegalCollisionException
+                                                                         IllegalHouseDimensionsException,
+                                                                         IllegalWindowException,
+                                                                         IllegalDoorException,
+                                                                         IllegalCollisionException
     {
 
         Cube dimensions = specification.getDimensions();
@@ -74,23 +77,23 @@ public class HalfPatternBricklayer implements Bricklayer
         Cube   houseDimensions = specification.dimensions;
         Window window          = specification.window;
 
-        if (window.position.y < 1)
+        if (window.y < 1)
             throw new IllegalWindowException(IllegalWindowException.Reason.POSITION_Y_LESS_THAN_1, specification);
 
-        if (window.position.x < 2)
+        if (window.x < 2)
             throw new IllegalWindowException(IllegalWindowException.Reason.PLACEMENT_OUT_OF_BOUNDS_LEFT, specification);
 
         int windowWallWidth = getWallWidth(houseDimensions, window.side);
-        if (window.position.x + window.dimensions.width <= windowWallWidth - 2)
+        if (window.x + window.width <= windowWallWidth - 2)
             throw new IllegalWindowException(IllegalWindowException.Reason.PLACEMENT_OUT_OF_BOUNDS_RIGHT, specification);
 
-        if (window.dimensions.height + window.position.y <= specification.dimensions.height)
+        if (window.height + window.y <= specification.dimensions.height)
             throw new IllegalWindowException(IllegalWindowException.Reason.PLACEMENT_OUT_OF_BOUNDS_TOP, specification);
 
-        if (window.dimensions.width < 1)
+        if (window.width < 1)
             throw new IllegalWindowException(IllegalWindowException.Reason.DIMENSIONS_WIDTH_LESS_THAN_1, specification);
 
-        if (window.dimensions.height < 1)
+        if (window.height < 1)
             throw new IllegalWindowException(IllegalWindowException.Reason.DIMENSIONS_HEIGHT_LESS_THAN_1, specification);
     }
 
@@ -99,23 +102,23 @@ public class HalfPatternBricklayer implements Bricklayer
         Cube houseDimensions = specification.dimensions;
         Door door            = specification.door;
 
-        if (door.position.y != 0)
+        if (door.y != 0)
             throw new IllegalDoorException(IllegalDoorException.Reason.POSITION_Y_NOT_ZERO, specification);
 
-        if (door.position.x < 2)
+        if (door.x < 2)
             throw new IllegalDoorException(IllegalDoorException.Reason.PLACEMENT_OUT_OF_BOUNDS_LEFT, specification);
 
         int doorWallWidth = getWallWidth(houseDimensions, door.side);
-        if (door.position.x + door.dimensions.width <= doorWallWidth - 2)
+        if (door.x + door.width <= doorWallWidth - 2)
             throw new IllegalDoorException(IllegalDoorException.Reason.PLACEMENT_OUT_OF_BOUNDS_RIGHT, specification);
 
-        if (door.dimensions.height <= houseDimensions.height)
+        if (door.height <= houseDimensions.height)
             throw new IllegalDoorException(IllegalDoorException.Reason.PLACEMENT_OUT_OF_BOUNDS_TOP, specification);
 
-        if (door.dimensions.width < 1)
+        if (door.width < 1)
             throw new IllegalDoorException(IllegalDoorException.Reason.DIMENSIONS_WIDTH_LESS_THAN_1, specification);
 
-        if (door.dimensions.height < 1)
+        if (door.height < 1)
             throw new IllegalDoorException(IllegalDoorException.Reason.DIMENSIONS_HEIGHT_LESS_THAN_1, specification);
     }
 
@@ -135,28 +138,28 @@ public class HalfPatternBricklayer implements Bricklayer
         WallBuilder builder = new WallBuilder();
         this.currentOffset = 0;
 
-        while (builder.getCurrentPosition().y < specifications.dimensions.height) {
+        while (builder.getCurrentPointer().y < specifications.dimensions.height) {
 
             this.currentOffset = 0;
             int width = specifications.dimensions.width - BRICK_WIDTH;
-            if (builder.getCurrentPosition().y % 2 != 0) {
+            if (builder.getCurrentPointer().y % 2 != 0) {
                 builder.move(2);
                 width += BRICK_WIDTH;
             }
 
-            while (builder.getCurrentPosition().x < width) {
+            while (builder.getCurrentPointer().x < width) {
 
-                Position position = builder.getCurrentPosition();
+                Position position = builder.getCurrentPointer();
 
                 if (specifications.door != null && !fits(1, position, side, specifications.door.side, specifications.door)) {
-                    builder.move(specifications.door.dimensions.width);
-                    currentOffset = currentOffset + specifications.door.dimensions.width % BRICK_LARGE;
+                    builder.move(specifications.door.width);
+                    currentOffset = currentOffset + specifications.door.width % BRICK_LARGE;
                     continue;
                 }
 
                 if (specifications.window != null && !fits(1, position, side, specifications.window.side, specifications.window)) {
-                    builder.move(specifications.window.dimensions.width);
-                    currentOffset = currentOffset + specifications.window.dimensions.width % BRICK_LARGE;
+                    builder.move(specifications.window.width);
+                    currentOffset = currentOffset + specifications.window.width % BRICK_LARGE;
                     continue;
                 }
 
@@ -189,7 +192,7 @@ public class HalfPatternBricklayer implements Bricklayer
 
     private boolean place(WallBuilder builder, int brick, int width, Side side, HouseSpecification specifications)
     {
-        Position position = builder.getCurrentPosition();
+        Position position = builder.getCurrentPointer();
         if (position.x + brick <= width) {
 
             boolean fitsWindow = specifications.window == null || fits(brick, position, side, specifications.window.side, specifications.window);

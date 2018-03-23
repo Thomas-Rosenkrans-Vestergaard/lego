@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import tvestergaard.lego.logic.BrickFacade;
 import tvestergaard.lego.logic.building.*;
+import tvestergaard.lego.logic.geometry.Position;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +54,8 @@ public class GenerateServlet extends HttpServlet
 
             if (parameters.isPresent("door") && parameters.getString("door").equals("on")) {
                 door = new Door(
-                        Square.of(parameters.getInt("door-width"), parameters.getInt("door-height")),
+                        parameters.getInt("door-width"),
+                        parameters.getInt("door-height"),
                         Position.of(parameters.getInt("door-x"), 0),
                         getSide(parameters.getInt("door-side"))
                 );
@@ -61,7 +63,8 @@ public class GenerateServlet extends HttpServlet
 
             if (parameters.isPresent("window") && parameters.getString("window").equals("on")) {
                 window = new Window(
-                        Square.of(parameters.getInt("window-width"), parameters.getInt("window-height")),
+                        parameters.getInt("window-width"),
+                        parameters.getInt("window-height"),
                         Position.of(parameters.getInt("window-x"), parameters.getInt("window-y")),
                         getSide(parameters.getInt("window-side"))
                 );
@@ -81,8 +84,8 @@ public class GenerateServlet extends HttpServlet
     {
         JSONObject root = new JSONObject()
                 .put("dimensions", new JSONObject().put("height", house.getDimensions().getHeight())
-                        .put("width", house.getDimensions().getWidth())
-                        .put("depth", house.getDimensions().getDepth()))
+                                                   .put("width", house.getDimensions().getWidth())
+                                                   .put("depth", house.getDimensions().getDepth()))
                 .put("fours", house.getFourPieces())
                 .put("twos", house.getTwoPieces())
                 .put("ones", house.getOnePieces())
@@ -105,8 +108,8 @@ public class GenerateServlet extends HttpServlet
         int       index  = 0;
         for (Brick brick : wall.getBricks()) {
             bricks.put(index, new JSONObject().put("x", brick.position.x)
-                    .put("y", brick.position.y)
-                    .put("length", brick.length));
+                                              .put("y", brick.position.y)
+                                              .put("length", brick.length));
             index++;
         }
 

@@ -1,4 +1,4 @@
-package tvestergaard.lego.logic.building;
+package tvestergaard.lego.logic.geometry;
 
 /**
  * Represents a coordinate with an {@code x} and {@code y} component.
@@ -67,7 +67,7 @@ public class Position
      */
     public Position up(int distance)
     {
-        return new Position(x, y + 1);
+        return new Position(x, y + distance);
     }
 
     /**
@@ -78,7 +78,7 @@ public class Position
      */
     public Position down(int distance)
     {
-        return new Position(x, y - 1);
+        return new Position(x, y - distance);
     }
 
     /**

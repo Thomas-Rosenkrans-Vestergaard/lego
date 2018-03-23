@@ -1,5 +1,8 @@
 package tvestergaard.lego.logic.building;
 
+import tvestergaard.lego.logic.geometry.Position;
+import tvestergaard.lego.logic.geometry.PositionedSquare;
+
 /**
  * Represents some {@link Door} on a {@link House}.
  */
@@ -14,27 +17,14 @@ public class Door extends PositionedSquare
     /**
      * Creates a new {@link Door}.
      *
-     * @param dimensions The dimensions of the {@link Door} represented by an {@link Square} in two dimensions.
-     * @param position   The {@link Position} of the {@link Door} on the chosen {@link Side}.
-     * @param side       The {@link Side} of the {@link HouseSpecification} where the {@link Door} is located.
-     * @throws InvalidDoorException When the arguments provided created an invalid {@link Door}.
+     * @param width    The width of the door {@link Door}.
+     * @param height   The height of the {@link Door}.
+     * @param position The {@link Position} of the {@link Door} on the chosen {@link Side}.
+     * @param side     The {@link Side} of the {@link HouseSpecification} where the {@link Door} is located.
      */
-    public Door(Square dimensions, Position position, Side side) throws InvalidDoorException
+    public Door(int width, int height, Position position, Side side)
     {
-        super(position, dimensions);
-
-        if (dimensions.height < 1)
-            throw new InvalidDoorException("The height of the door must exceed 0.", this);
-
-        if (dimensions.width < 1)
-            throw new InvalidDoorException("The width of the door must exceed 0.", this);
-
-        if (position.y != 0)
-            throw new InvalidDoorException("Door position.y must = 0", this);
-
-        if (position.x < 2)
-            throw new InvalidDoorException("Door position.x must not be < 2.", this);
-
+        super(width, height, position);
         this.side = side;
     }
 

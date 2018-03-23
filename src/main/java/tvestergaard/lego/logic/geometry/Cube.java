@@ -1,4 +1,4 @@
-package tvestergaard.lego.logic.building;
+package tvestergaard.lego.logic.geometry;
 
 import java.util.Objects;
 

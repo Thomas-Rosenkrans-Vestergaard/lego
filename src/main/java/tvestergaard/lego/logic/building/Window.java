@@ -1,5 +1,8 @@
 package tvestergaard.lego.logic.building;
 
+import tvestergaard.lego.logic.geometry.Position;
+import tvestergaard.lego.logic.geometry.PositionedSquare;
+
 public class Window extends PositionedSquare
 {
 
@@ -11,28 +14,15 @@ public class Window extends PositionedSquare
     /**
      * Creates a new {@link Window}.
      *
-     * @param dimensions The dimensions of the {@link Window} represented by an {@link Square} in two dimensions.
-     * @param position   The {@link Position} of the {@link Window} on the chosen {@link Side}.
-     * @param side       The {@link Side} of the {@link HouseSpecification} where the {@link Window} is located.
-     * @throws InvalidWindowException When the arguments provided created an invalid {@link Window}.
+     * @param width    The width of the {@link Window}.
+     * @param height   The height of the {@link Window}.
+     * @param position The {@link Position} of the {@link Window} on the chosen {@link Side}.
+     * @param side     The {@link Side} of the {@link HouseSpecification} where the {@link Window} is located.
      */
-    public Window(Square dimensions, Position position, Side side) throws InvalidWindowException
+    public Window(int width, int height, Position position, Side side)
     {
 
-        super(position, dimensions);
-
-        if (dimensions.height < 1)
-            throw new InvalidWindowException("The height of the window must exceed 0.", this);
-
-        if (dimensions.width < 1)
-            throw new InvalidWindowException("The width of the window must exceed 0.", this);
-
-        if (position.y < 1)
-            throw new InvalidWindowException("Window position.y must not be less than 1", this);
-
-        if (position.x < 2)
-            throw new InvalidWindowException("Window position.x must not be less than < 2.", this);
-
+        super(width, height, position);
         this.side = side;
     }
 
