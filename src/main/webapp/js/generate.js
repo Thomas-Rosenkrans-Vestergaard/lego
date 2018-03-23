@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     var door_switch = $('#door-switch');
     var door_inputs = $('.door-input');
     var window_switch = $('#window-switch');

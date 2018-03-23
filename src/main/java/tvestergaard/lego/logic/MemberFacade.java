@@ -3,6 +3,8 @@ package tvestergaard.lego.logic;
 import org.mindrot.jbcrypt.BCrypt;
 import tvestergaard.lego.database.members.*;
 
+import java.sql.SQLException;
+
 /**
  * Provides a simplified API for performing operations on members.
  */
@@ -34,15 +36,21 @@ public class MemberFacade
      */
     public Member login(String email, String password)
     {
-        Member member = memberDAO.select(email);
+        try {
 
-        if (member == null)
-            return null;
+            Member member = memberDAO.select(email);
 
-        if (!BCrypt.checkpw(password, member.getPassword()))
-            return null;
+            if (member == null)
+                return null;
 
-        return member;
+            if (!BCrypt.checkpw(password, member.getPassword()))
+                return null;
+
+            return member;
+
+        } catch (SQLException e) {
+            throw new ApplicationException(e);
+        }
     }
 
     /**
@@ -56,13 +64,18 @@ public class MemberFacade
      */
     public Member register(String email, String password) throws InvalidEmailException, EmailCollisionException
     {
-        MemberBuilder builder = new MemberBuilder(
-                email,
-                hash(password),
-                Role.MEMBER
-        );
+        try {
 
-        return memberDAO.create(builder);
+            MemberBuilder builder = new MemberBuilder(
+                    email,
+                    hash(password),
+                    Role.MEMBER
+            );
+
+            return memberDAO.create(builder);
+        } catch (SQLException e) {
+            throw new ApplicationException(e);
+        }
     }
 
     /**

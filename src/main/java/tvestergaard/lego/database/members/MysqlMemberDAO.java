@@ -1,7 +1,6 @@
 package tvestergaard.lego.database.members;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import tvestergaard.lego.logic.ApplicationException;
 
 import java.sql.*;
 
@@ -32,7 +31,7 @@ public class MysqlMemberDAO implements MemberDAO
      * @param id The id of the member to select from the data source.
      * @return The {@link Member} instance representing the member with the provided id.
      */
-    @Override public Member select(int id)
+    @Override public Member select(int id) throws SQLException
     {
         String select = "SELECT * FROM members WHERE id = ?";
         try (Connection connection = source.getConnection();
@@ -44,9 +43,6 @@ public class MysqlMemberDAO implements MemberDAO
                 return null;
 
             return createMember(resultSet);
-
-        } catch (SQLException e) {
-            throw new ApplicationException(e);
         }
     }
 
@@ -56,7 +52,7 @@ public class MysqlMemberDAO implements MemberDAO
      * @param email The email address of the member to select from the data source.
      * @return The {@link Member} instance representing the member with the provided email.
      */
-    @Override public Member select(String email)
+    @Override public Member select(String email) throws SQLException
     {
         String select = "SELECT * FROM members WHERE email = ?";
         try (Connection connection = source.getConnection();
@@ -69,8 +65,6 @@ public class MysqlMemberDAO implements MemberDAO
 
             return createMember(resultSet);
 
-        } catch (SQLException e) {
-            throw new ApplicationException(e);
         }
     }
 
@@ -81,7 +75,7 @@ public class MysqlMemberDAO implements MemberDAO
      * @return The {@link Member} instance representing the newly inserted member.
      * @throws EmailCollisionException When the unique constraint on the email attribute fails.
      */
-    @Override public Member create(MemberBuilder builder) throws EmailCollisionException
+    @Override public Member create(MemberBuilder builder) throws SQLException, EmailCollisionException
     {
 
         String email    = builder.getEmail();
@@ -105,8 +99,6 @@ public class MysqlMemberDAO implements MemberDAO
 
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new EmailCollisionException(e, email);
-        } catch (SQLException e) {
-            throw new ApplicationException(e);
         }
     }
 

@@ -55,7 +55,7 @@ public enum Role
      * @return The {@link Role} instance associated with the provided {@code id}.
      * @throws UnknownRoleException When no instance {@link Role} with the provided {@code id} exists.
      */
-    static Role fromId(int id) throws UnknownRoleException
+    public static Role fromId(int id) throws UnknownRoleException
     {
         return values[id - 1];
     }

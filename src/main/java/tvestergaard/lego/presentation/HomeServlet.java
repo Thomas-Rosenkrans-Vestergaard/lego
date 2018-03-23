@@ -22,7 +22,9 @@ public class HomeServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+        Authentication authentication = new Authentication(req, resp);
         Presentation.notifications(req);
+        req.setAttribute("member", authentication.getMember());
         req.getRequestDispatcher("/WEB-INF/home.jsp").forward(req, resp);
     }
 }

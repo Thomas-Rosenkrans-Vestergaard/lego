@@ -31,7 +31,9 @@ public class MembershipServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+        Authentication authentication = new Authentication(req, resp);
         Presentation.notifications(req);
+        req.setAttribute("member", authentication.getMember());
         req.getRequestDispatcher("/WEB-INF/membership.jsp").forward(req, resp);
     }
 

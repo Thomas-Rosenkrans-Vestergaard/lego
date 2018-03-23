@@ -23,6 +23,15 @@ public class Authentication
         return request.getSession().getAttribute("member") != null;
     }
 
+    public boolean isAdministrator()
+    {
+        Member member = (Member) request.getSession().getAttribute("member");
+        if (member == null)
+            return false;
+
+        return member.getRole().getId() > 1;
+    }
+
     public void redirect(String ref) throws IOException
     {
         response.sendRedirect("membership?from=" + ref);

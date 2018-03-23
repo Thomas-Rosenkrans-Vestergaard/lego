@@ -2,6 +2,7 @@ package tvestergaard.lego.presentation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import tvestergaard.lego.logic.BrickFacade;
 import tvestergaard.lego.logic.building.*;
 
 import javax.servlet.ServletException;
@@ -66,12 +67,9 @@ public class GenerateServlet extends HttpServlet
                 );
             }
 
-            HouseSpecification specification = new HouseSpecification(Cube.of(width, height, depth), door, window);
-            Bricklayer         layer         = new HalfPatternBricklayer();
-            House              house         = layer.lay(specification);
             resp.setContentType("application/json");
             PrintWriter out = resp.getWriter();
-            out.print(toJson(house));
+            out.print(toJson(BrickFacade.build(width, height, depth, door, window)));
             out.flush();
 
         } catch (Exception e) {
@@ -83,8 +81,8 @@ public class GenerateServlet extends HttpServlet
     {
         JSONObject root = new JSONObject()
                 .put("dimensions", new JSONObject().put("height", house.getDimensions().getHeight())
-                                                   .put("width", house.getDimensions().getWidth())
-                                                   .put("depth", house.getDimensions().getDepth()))
+                        .put("width", house.getDimensions().getWidth())
+                        .put("depth", house.getDimensions().getDepth()))
                 .put("fours", house.getFourPieces())
                 .put("twos", house.getTwoPieces())
                 .put("ones", house.getOnePieces())
@@ -107,8 +105,8 @@ public class GenerateServlet extends HttpServlet
         int       index  = 0;
         for (Brick brick : wall.getBricks()) {
             bricks.put(index, new JSONObject().put("x", brick.position.x)
-                                              .put("y", brick.position.y)
-                                              .put("length", brick.length));
+                    .put("y", brick.position.y)
+                    .put("length", brick.length));
             index++;
         }
 
