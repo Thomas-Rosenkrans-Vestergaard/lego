@@ -2,6 +2,8 @@ package tvestergaard.lego.logic.building;
 
 /**
  * Thrown when the {@link House} dimensions defined by some {@link HouseSpecification} cannot be built without errors.
+ * <p>
+ * The actual {@link Reason} for the {@link IllegalHouseDimensionsException} can be retrieved using the {@link IllegalHouseDimensionsException#getReason()}.
  */
 public class IllegalHouseDimensionsException extends Exception
 {

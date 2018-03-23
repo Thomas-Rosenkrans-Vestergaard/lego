@@ -2,6 +2,8 @@ package tvestergaard.lego.logic.building;
 
 /**
  * Thrown when the {@link Door} defined by some {@link HouseSpecification} cannot be built without errors.
+ * <p>
+ * The actual {@link Reason} for the {@link IllegalDoorException} can be retrieved using the {@link IllegalDoorException#getReason()}.
  */
 public class IllegalDoorException extends Exception
 {

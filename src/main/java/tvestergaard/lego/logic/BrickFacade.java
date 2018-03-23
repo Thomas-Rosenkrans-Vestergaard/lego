@@ -7,11 +7,26 @@ import tvestergaard.lego.logic.geometry.Cube;
 public class BrickFacade
 {
 
-    public static House build(int width, int height, int depth, Door door, Window window) throws
-            IllegalHouseDimensionsException,
-            IllegalDoorException,
-            IllegalWindowException,
-            IllegalCollisionException
+    /**
+     * Builds a {@link House} using the provided specifications.
+     *
+     * @param width  The width of the {@link House} to build.
+     * @param height The height of the {@link House} to build.
+     * @param depth  The depth of the {@link House} to build.
+     * @param door   The {@link Door} to place in the {@link House} to build. When {@code null}, no {@link Door} is
+     *               placed on the {@link House}.
+     * @param window The {@link Window} to place in the {@link House} to build. When {@code null}, no {@link Window} is
+     *               placed on the {@link House}.
+     * @return The built {@link House}.
+     * @throws IllegalHouseDimensionsException When the dimensions of the house is considered illegal.
+     * @throws IllegalDoorException            When the {@link Door} to place on the house is considered illegal.
+     * @throws IllegalWindowException          When the {@link Window} to place on the house is considered illegal.
+     * @throws IllegalCollisionException       When the {@link Door} and {@link Window} overlap.
+     */
+    public static House build(int width, int height, int depth, Door door, Window window) throws IllegalHouseDimensionsException,
+                                                                                                 IllegalDoorException,
+                                                                                                 IllegalWindowException,
+                                                                                                 IllegalCollisionException
     {
         HouseSpecification specification = new HouseSpecification(Cube.of(width, height, depth), door, window);
         Bricklayer         layer         = new HalfPatternBricklayer();

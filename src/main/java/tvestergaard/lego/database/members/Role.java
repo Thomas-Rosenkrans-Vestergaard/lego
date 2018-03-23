@@ -6,19 +6,8 @@ package tvestergaard.lego.database.members;
 public enum Role
 {
 
-    /**
-     * The default authorized users.
-     */
     MEMBER(1),
-
-    /**
-     * Has access to the administration panel.
-     */
     ADMINISTRATOR(2),
-
-    /**
-     * The owner of the application.
-     */
     OWNER(3);
 
     /**

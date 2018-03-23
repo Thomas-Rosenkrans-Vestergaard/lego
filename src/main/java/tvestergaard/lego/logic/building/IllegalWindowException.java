@@ -2,6 +2,8 @@ package tvestergaard.lego.logic.building;
 
 /**
  * Thrown when the {@link Window} defined by some {@link HouseSpecification} cannot be built without errors.
+ * <p>
+ * The actual {@link Reason} for the {@link IllegalWindowException} can be retrieved using the {@link IllegalWindowException#getReason()}.
  */
 public class IllegalWindowException extends Exception
 {
