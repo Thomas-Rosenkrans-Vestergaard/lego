@@ -57,10 +57,10 @@ $(document).ready(function () {
             data: $('#house-form').serialize(),
             success: function (data) {
                 console.log(data);
-                update(document.getElementById('front-canvas'), data.front, data.dimensions.width, data.dimensions.height);
-                update(document.getElementById('back-canvas'), data.back, data.dimensions.width, data.dimensions.height);
-                update(document.getElementById('left-canvas'), data.left, data.dimensions.depth, data.dimensions.height);
-                update(document.getElementById('right-canvas'), data.right, data.dimensions.depth, data.dimensions.height);
+                update(document.getElementById('front-canvas'), data.front, data.width, data.height);
+                update(document.getElementById('back-canvas'), data.back, data.width, data.height);
+                update(document.getElementById('left-canvas'), data.left, data.depth, data.height);
+                update(document.getElementById('right-canvas'), data.right, data.depth, data.height);
             }
         });
 

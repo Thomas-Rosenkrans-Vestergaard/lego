@@ -5,13 +5,8 @@ import tvestergaard.lego.logic.geometry.Cube;
 /**
  * A {@link House} built from {@link Brick}s with four {@link Wall} and an optional {@link Door} or {@link Window}.
  */
-public class House
+public class House extends Cube
 {
-
-    /**
-     * The dimensions of the {@link House} represented by a {@link Cube}.
-     */
-    private final Cube dimensions;
 
     /**
      * The {@link Door} placed on the {@link House}. When {@code null} the {@link House} does not have a {@link Door}.
@@ -46,35 +41,27 @@ public class House
     /**
      * Creates a new {@link House} using the provided {@link House}.
      *
-     * @param dimensions The dimensions of the {@link House}.
-     * @param door       The {@link Door} placed on the {@link House}.  When {@code null} the {@link House} does not
-     *                   have a {@link Door}.
-     * @param window     The {@link Window} placed in the {@link House}.  When {@code null} the {@link House} does not
-     *                   have a {@link Window}.
-     * @param front      The {@link Side#FRONT} {@link Wall} of the {@link House}.
-     * @param back       The {@link Side#BACK} {@link Wall} of the {@link House}.
-     * @param right      The {@link Side#RIGHT} {@link Wall} of the {@link House}.
-     * @param left       The {@link Side#LEFT} {@link Wall} of the {@link House}.
+     * @param width  The width of the {@link House}.
+     * @param height The height of the {@link House}.
+     * @param depth  The depth of the {@link House}.
+     * @param door   The {@link Door} placed on the {@link House}.  When {@code null} the {@link House} does not
+     *               have a {@link Door}.
+     * @param window The {@link Window} placed in the {@link House}.  When {@code null} the {@link House} does not
+     *               have a {@link Window}.
+     * @param front  The {@link Side#FRONT} {@link Wall} of the {@link House}.
+     * @param back   The {@link Side#BACK} {@link Wall} of the {@link House}.
+     * @param right  The {@link Side#RIGHT} {@link Wall} of the {@link House}.
+     * @param left   The {@link Side#LEFT} {@link Wall} of the {@link House}.
      */
-    public House(Cube dimensions, Door door, Window window, Wall front, Wall back, Wall right, Wall left)
+    public House(int width, int height, int depth, Door door, Window window, Wall front, Wall back, Wall right, Wall left)
     {
-        this.dimensions = dimensions;
+        super(width, height, depth);
         this.door = door;
         this.window = window;
         this.front = front;
         this.back = back;
         this.right = right;
         this.left = left;
-    }
-
-    /**
-     * Returns The dimensions of the {@link House} represented by a {@link Cube}.
-     *
-     * @return The dimensions of the {@link House} represented by a {@link Cube}.
-     */
-    public Cube getDimensions()
-    {
-        return this.dimensions;
     }
 
     /**
@@ -141,29 +128,42 @@ public class House
         return this.left;
     }
 
+    /**
+     * Returns the number of 4x2 pieces used to create the {@link House}.
+     *
+     * @return The number of 4x2 pieces used to create the {@link House}.
+     */
     public int getFourPieces()
     {
         return front.getFourPieces() +
-               back.getFourPieces() +
-               left.getFourPieces() +
-               right.getFourPieces();
+                back.getFourPieces() +
+                left.getFourPieces() +
+                right.getFourPieces();
     }
 
-
+    /**
+     * Returns the number of 2x2 pieces used to create the {@link House}.
+     *
+     * @return The number of 2x2 pieces used to create the {@link House}.
+     */
     public int getTwoPieces()
     {
         return front.getTwoPieces() +
-               back.getTwoPieces() +
-               left.getTwoPieces() +
-               right.getTwoPieces();
+                back.getTwoPieces() +
+                left.getTwoPieces() +
+                right.getTwoPieces();
     }
 
-
+    /**
+     * Returns the number of 1x2 pieces used to create the {@link House}.
+     *
+     * @return The number of 1x2 pieces used to create the {@link House}.
+     */
     public int getOnePieces()
     {
         return front.getOnePieces() +
-               back.getOnePieces() +
-               left.getOnePieces() +
-               right.getOnePieces();
+                back.getOnePieces() +
+                left.getOnePieces() +
+                right.getOnePieces();
     }
 }

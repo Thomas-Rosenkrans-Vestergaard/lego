@@ -1,9 +1,10 @@
 package tvestergaard.lego.presentation.servlets;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import tvestergaard.lego.logic.BrickFacade;
-import tvestergaard.lego.logic.building.*;
+import tvestergaard.lego.logic.building.Door;
+import tvestergaard.lego.logic.building.HouseJsonConverter;
+import tvestergaard.lego.logic.building.Side;
+import tvestergaard.lego.logic.building.Window;
 import tvestergaard.lego.logic.geometry.Position;
 import tvestergaard.lego.presentation.Notifications;
 import tvestergaard.lego.presentation.Parameters;
@@ -75,49 +76,12 @@ public class GenerateServlet extends HttpServlet
 
             resp.setContentType("application/json");
             PrintWriter out = resp.getWriter();
-            out.print(toJson(BrickFacade.build(width, height, depth, door, window)));
+            out.print(new HouseJsonConverter().convert(BrickFacade.build(width, height, depth, door, window)));
             out.flush();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private String toJson(House house)
-    {
-        JSONObject root = new JSONObject()
-                .put("dimensions", new JSONObject().put("height", house.getDimensions().getHeight())
-                                                   .put("width", house.getDimensions().getWidth())
-                                                   .put("depth", house.getDimensions().getDepth()))
-                .put("fours", house.getFourPieces())
-                .put("twos", house.getTwoPieces())
-                .put("ones", house.getOnePieces())
-                .put("front", getWall(house.getFront()))
-                .put("back", getWall(house.getBack()))
-                .put("left", getWall(house.getLeft()))
-                .put("right", getWall(house.getRight()));
-
-        return root.toString();
-    }
-
-    private JSONObject getWall(Wall wall)
-    {
-        JSONObject object = new JSONObject();
-        object.put("fours", wall.getFourPieces());
-        object.put("twos", wall.getTwoPieces());
-        object.put("ones", wall.getOnePieces());
-
-        JSONArray bricks = new JSONArray();
-        int       index  = 0;
-        for (Brick brick : wall.getBricks()) {
-            bricks.put(index, new JSONObject().put("x", brick.position.x)
-                                              .put("y", brick.position.y)
-                                              .put("length", brick.length));
-            index++;
-        }
-
-        object.put("bricks", bricks);
-        return object;
     }
 
     private Side getSide(int code)

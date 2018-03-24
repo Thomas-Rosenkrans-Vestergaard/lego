@@ -43,7 +43,12 @@ public class HalfPatternBricklayer implements Bricklayer
         Wall right = buildWall(specifications, Side.RIGHT);
         Wall left  = buildWall(specifications, Side.LEFT);
 
-        return new House(specifications.dimensions, specifications.door, specifications.window, front, back, right, left);
+        return new House(
+                specifications.dimensions.width,
+                specifications.dimensions.height,
+                specifications.dimensions.depth,
+                specifications.door,
+                specifications.window, front, back, right, left);
     }
 
     public void validateSpecifications(HouseSpecification specification) throws
