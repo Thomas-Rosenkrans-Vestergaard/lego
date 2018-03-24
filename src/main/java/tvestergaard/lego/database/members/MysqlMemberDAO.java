@@ -5,7 +5,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.*;
 
 /**
- * Provides operations related to members to some MySQL database.
+ * Data access object concerned with persisting members to an {@code MySQL} database.
  */
 public class MysqlMemberDAO implements MemberDAO
 {

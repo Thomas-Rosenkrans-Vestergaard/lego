@@ -8,16 +8,34 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data access object concerned with persisting orders in {@code MySQL} databases.
+ */
 public class MysqlOrderDAO implements OrderDAO
 {
 
+    /**
+     * The {@link MysqlDataSource} used for persistent storage.
+     */
     private final MysqlDataSource source;
 
+    /**
+     * Creates a new {@link MysqlOrderDAO}.
+     *
+     * @param source The {@link MysqlDataSource} used for persistent storage.
+     */
     public MysqlOrderDAO(MysqlDataSource source)
     {
         this.source = source;
     }
 
+    /**
+     * Creates a new order record.
+     *
+     * @param builder The {@link OrderBuilder} containing the values to use when creating the new order record.
+     * @return The {@link Order} instance representing the newly created record.
+     * @throws SQLException
+     */
     @Override public Order create(OrderBuilder builder) throws SQLException
     {
         String insert = "INSERT INTO orders (member, width, height, depth, specification) VALUES (?, ?, ?, ?, ?)";
@@ -35,18 +53,17 @@ public class MysqlOrderDAO implements OrderDAO
             if (!resultSet.first())
                 return null;
 
-            return new Order(
-                    resultSet.getInt(1),
-                    builder.getMember(),
-                    builder.getWidth(),
-                    builder.getHeight(),
-                    builder.getDepth(),
-                    builder.getSpecification(),
-                    builder.getStatus()
-            );
+            return select(resultSet.getInt(1));
         }
     }
 
+    /**
+     * Selects the order record with the provided {@code id}.
+     *
+     * @param id The {@code id} of the order record to select.
+     * @return The {@link Order} instance representing the selected record. Returns {@code null} if no such record exists.
+     * @throws SQLException
+     */
     @Override public Order select(int id) throws SQLException
     {
         String select = "SELECT * FROM orders INNER JOIN members ON orders.member = members.id WHERE id = ?";
@@ -62,6 +79,13 @@ public class MysqlOrderDAO implements OrderDAO
         }
     }
 
+    /**
+     * Selects all the order records by the provided {@link Member}.
+     *
+     * @param member The {@link Member} whose order records to select.
+     * @return The list of {@link Order} instances representing the selected records.
+     * @throws SQLException
+     */
     @Override public List<Order> select(Member member) throws SQLException
     {
         List<Order> orders = new ArrayList<>();
@@ -78,6 +102,12 @@ public class MysqlOrderDAO implements OrderDAO
         }
     }
 
+    /**
+     * Selects all the order records.
+     *
+     * @return The list of {@link Order} instances representing the selected records.
+     * @throws SQLException
+     */
     @Override public List<Order> select() throws SQLException
     {
         List<Order> orders = new ArrayList<>();
@@ -109,7 +139,10 @@ public class MysqlOrderDAO implements OrderDAO
                 resultSet.getInt("height"),
                 resultSet.getInt("depth"),
                 resultSet.getString("specification"),
-                Status.from(resultSet.getInt("status"))
+                Status.from(resultSet.getInt("status")),
+                resultSet.getTimestamp("created_at"),
+                resultSet.getTimestamp("updated_at"),
+                resultSet.getTimestamp("shipped_at")
         );
     }
 }

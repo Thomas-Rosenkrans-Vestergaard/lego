@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="title" value="Home" scope="request"/>
 <%@ include file="include/top.jspf" %>
-<script src="js/generate.js"></script>
+<script src="js/render.js"></script>
+<script src="js/home.js"></script>
 <div class="row">
     <div class="col s12">
         <h2>Home</h2>
@@ -28,21 +29,21 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <p>Input the dimensions of your lego house.</p>
+            <p>The dimensions of the lego house. The width and depth are measured in dots, whereas the height is meassured in bricks.</p>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12 l4">
             <input id="width" type="number" class="validate" name="width" value="22" min="8" required>
-            <label for="width">The width of the house (in dots).</label>
+            <label for="width">Width</label>
         </div>
         <div class="input-field col s12 l4">
             <input id="height" type="number" class="validate" name="height" value="4" min="4" required>
-            <label for="height">The height of the house (in bricks)</label>
+            <label for="height">Height</label>
         </div>
         <div class="input-field col s12 l4">
             <input id="depth" type="number" class="validate" name="depth" value="22" min="8" required>
-            <label for="depth">The depth of the house (in dots)</label>
+            <label for="depth">Depth</label>
         </div>
     </div>
     <div class="row">
@@ -69,7 +70,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 l6">
                 <p>
                     <input class="door-input" name="door-side" type="radio" value="1" id="door-front" checked="checked"
                            required/>

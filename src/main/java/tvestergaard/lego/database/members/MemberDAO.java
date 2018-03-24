@@ -3,7 +3,7 @@ package tvestergaard.lego.database.members;
 import java.sql.SQLException;
 
 /**
- * Provides operations related to members to some data source.
+ * Data access object concerned with persisting members to some data storage.
  */
 public interface MemberDAO
 {
