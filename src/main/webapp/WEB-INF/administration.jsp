@@ -35,7 +35,8 @@
                             <td>
                                 <form method="post">
                                     <input type="hidden" name="id" value="${order.getId()}">
-                                    <input class="button-submit btn" type="submit" value="MARK SENT">
+                                    <input class="button-submit btn" type="submit"
+                                           value="MARK SENT" ${order.getShippedAt() != null ? 'disabled' : ''}>
                                 </form>
                             </td>
                         </tr>

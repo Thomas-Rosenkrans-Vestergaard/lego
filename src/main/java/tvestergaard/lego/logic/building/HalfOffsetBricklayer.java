@@ -10,7 +10,13 @@ import java.util.List;
 import static tvestergaard.lego.logic.building.BricklayerException.Reason;
 import static tvestergaard.lego.logic.building.BricklayerException.Reason.*;
 
-public class HalfPatternBricklayer implements Bricklayer
+/**
+ * {@link Bricklayer} implementation building {@link House} instances from {@link HouseSpecification} instances using
+ * the "Stretching bond" brick pattern.
+ *
+ * @see <a href="https://www.theconstructioncivil.org/types-of-brick-bonds/">Brick bonds</a>
+ */
+public class HalfOffsetBricklayer implements Bricklayer
 {
 
     private static final int BRICK_LARGE  = 4;
@@ -20,7 +26,7 @@ public class HalfPatternBricklayer implements Bricklayer
 
     private int currentOffset = 0;
 
-    public HalfPatternBricklayer()
+    public HalfOffsetBricklayer()
     {
         currentOffset = 0;
     }

@@ -38,7 +38,7 @@ public class MysqlOrderDAO implements OrderDAO
      */
     @Override public Order create(OrderBuilder builder) throws SQLException
     {
-        String insert = "INSERT INTO orders (member, width, height, depth, specification) VALUES (?, ?, ?, ?, ?)";
+        String insert = "INSERT INTO orders (member, width, height, depth, specification, shipped_at) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = source.getConnection();
              PreparedStatement statement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, builder.getMember().getId());
@@ -46,6 +46,7 @@ public class MysqlOrderDAO implements OrderDAO
             statement.setInt(3, builder.getHeight());
             statement.setInt(4, builder.getDepth());
             statement.setString(5, builder.getSpecification());
+            statement.setTimestamp(6, builder.getShippedAt());
 
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
@@ -66,7 +67,7 @@ public class MysqlOrderDAO implements OrderDAO
      */
     @Override public Order select(int id) throws SQLException
     {
-        String select = "SELECT * FROM orders INNER JOIN members ON orders.member = members.id WHERE id = ?";
+        String select = "SELECT * FROM orders INNER JOIN members ON orders.member = members.id WHERE orders.id = ?";
         try (Connection connection = source.getConnection();
              PreparedStatement statement = connection.prepareStatement(select)) {
             statement.setInt(1, id);
@@ -120,6 +121,37 @@ public class MysqlOrderDAO implements OrderDAO
                 orders.add(createOrder(resultSet));
 
             return orders;
+        }
+    }
+
+    /**
+     * Updates the order record with the provided {@code id} using the provided {@link OrderBuilder}.
+     *
+     * @param id      The id of the order record to update.
+     * @param builder The values to update to.
+     * @return The {@link Order} instance representing the updated record.
+     * @throws SQLException
+     */
+    @Override public Order update(int id, OrderBuilder builder) throws SQLException
+    {
+        String update = "UPDATE orders SET member = ?, width = ?, height = ?, depth = ?, specification = ?, shipped_at = ? WHERE id = ?";
+        try (Connection connection = source.getConnection();
+             PreparedStatement statement = connection.prepareStatement(update, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, builder.getMember().getId());
+            statement.setInt(2, builder.getWidth());
+            statement.setInt(3, builder.getHeight());
+            statement.setInt(4, builder.getDepth());
+            statement.setString(5, builder.getSpecification());
+            statement.setTimestamp(6, builder.getShippedAt());
+            statement.setInt(7, id);
+
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+
+            if (!resultSet.first())
+                return null;
+
+            return select(resultSet.getInt(1));
         }
     }
 

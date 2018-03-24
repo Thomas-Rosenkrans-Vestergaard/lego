@@ -3,6 +3,9 @@ package tvestergaard.lego.logic.building;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Thrown when a {@link Bricklayer} cannot build some {@link HouseSpecification}.
+ */
 public class BricklayerException extends Exception
 {
 

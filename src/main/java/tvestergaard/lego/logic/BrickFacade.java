@@ -22,7 +22,7 @@ public class BrickFacade
     public static House build(int width, int height, int depth, Door door, Window window) throws BricklayerException
     {
         HouseSpecification specification = new HouseSpecification(Cube.of(width, height, depth), door, window);
-        Bricklayer         layer         = new HalfPatternBricklayer();
+        Bricklayer         layer         = new HalfOffsetBricklayer();
         House              house         = layer.lay(specification);
         return house;
     }

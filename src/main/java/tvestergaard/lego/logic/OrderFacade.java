@@ -57,4 +57,13 @@ public class OrderFacade
             throw new ApplicationException(e);
         }
     }
+
+    public Order update(int id, OrderBuilder builder) throws ApplicationException
+    {
+        try {
+            return dao.update(id, builder);
+        } catch (Exception e) {
+            throw new ApplicationException(e);
+        }
+    }
 }

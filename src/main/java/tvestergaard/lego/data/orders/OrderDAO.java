@@ -45,4 +45,14 @@ public interface OrderDAO
      * @throws SQLException
      */
     List<Order> select(Member member) throws SQLException;
+
+    /**
+     * Updates the order record with the provided {@code id} using the provided {@link OrderBuilder}.
+     *
+     * @param id      The id of the order record to update.
+     * @param builder The values to update to.
+     * @return The {@link Order} instance representing the updated record.
+     * @throws SQLException
+     */
+    Order update(int id, OrderBuilder builder) throws SQLException;
 }

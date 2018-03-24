@@ -76,7 +76,7 @@ public class OrderServlet extends HttpServlet
 
             House              house     = BrickFacade.build(width, height, depth, door, window);
             HouseJsonConverter converter = new HouseJsonConverter();
-            OrderBuilder       builder   = new OrderBuilder(authentication.getMember(), width, height, depth, converter.convert(house), Status.PLACED);
+            OrderBuilder       builder   = new OrderBuilder(authentication.getMember(), width, height, depth, converter.convert(house), Status.PLACED, null);
             orderFacade.create(builder);
 
             notifications.success("Your order was placed successfully.");
