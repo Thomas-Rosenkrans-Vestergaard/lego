@@ -20,7 +20,7 @@
             porttitor, facilisis luctus, metus</p>
     </div>
 </div>
-<form class="row section" id="house-form">
+<form class="row section" id="house-form" action="order" method="POST">
     <div class="row">
         <div class="col s12">
             <h4>Dimensions</h4>
@@ -189,8 +189,15 @@
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <button class="btn-large waves-effect waves-light" type="submit">
-                Submit <i class="material-icons right">send</i>
+            <button class="btn-large waves-effect waves-light" id="preview-button">
+                PREVIEW <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <button class="btn-large waves-effect waves-light" type="submit" id="order-button">
+                ORDER <i class="material-icons right">send</i>
             </button>
         </div>
     </div>

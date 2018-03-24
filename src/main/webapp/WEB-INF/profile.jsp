@@ -64,7 +64,6 @@
                 <th>Width</th>
                 <th>Height</th>
                 <th>Depth</th>
-                <th>Specification</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -74,10 +73,10 @@
                     <c:forEach items="${orders}" var="order">
                         <tr>
                             <td><c:out value="${order.getId()}"/></td>
+                            <td><c:out value="${order.getMember().getEmail()}"/></td>
                             <td><c:out value="${order.getWidth()}"/></td>
                             <td><c:out value="${order.getHeight()}"/></td>
                             <td><c:out value="${order.getDepth()}"/></td>
-                            <td><c:out value="${order.getSpecification()}"/></td>
                             <td><c:out value="${order.getStatus()}"/></td>
                         </tr>
                     </c:forEach>

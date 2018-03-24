@@ -50,7 +50,7 @@ $(document).ready(function () {
         return color;
     }
 
-    $('#house-form').submit(function (e) {
+    $('#preview-button').click(function (e) {
         $.ajax({
             type: 'GET',
             url: 'generate',

@@ -27,7 +27,7 @@ public class MysqlOrderDAO implements OrderDAO
             statement.setInt(2, builder.getWidth());
             statement.setInt(3, builder.getHeight());
             statement.setInt(4, builder.getDepth());
-            statement.setString(5, builder.getSpecifications());
+            statement.setString(5, builder.getSpecification());
 
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
@@ -41,7 +41,7 @@ public class MysqlOrderDAO implements OrderDAO
                     builder.getWidth(),
                     builder.getHeight(),
                     builder.getDepth(),
-                    builder.getSpecifications(),
+                    builder.getSpecification(),
                     builder.getStatus()
             );
         }
@@ -62,18 +62,19 @@ public class MysqlOrderDAO implements OrderDAO
         }
     }
 
-    @Override public Order select(Member member) throws SQLException
+    @Override public List<Order> select(Member member) throws SQLException
     {
-        String select = "SELECT * FROM orders INNER JOIN members ON orders.member = members.id WHERE member = ?";
+        List<Order> orders = new ArrayList<>();
+        String      select = "SELECT * FROM orders INNER JOIN members ON orders.member = members.id WHERE member = ?";
         try (Connection connection = source.getConnection();
              PreparedStatement statement = connection.prepareStatement(select)) {
 
             statement.setInt(1, member.getId());
             ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.first())
-                return null;
+            while (resultSet.next())
+                orders.add(createOrder(resultSet));
 
-            return createOrder(resultSet);
+            return orders;
         }
     }
 
@@ -97,12 +98,12 @@ public class MysqlOrderDAO implements OrderDAO
         return new Order(
                 resultSet.getInt("id"),
                 new Member(
-                        resultSet.getInt("member.id"),
-                        resultSet.getString("member.email"),
-                        resultSet.getString("member.password"),
-                        Role.fromId(resultSet.getInt("member.role")),
-                        resultSet.getTimestamp("member.created_at"),
-                        resultSet.getTimestamp("member.updated_at")
+                        resultSet.getInt("members.id"),
+                        resultSet.getString("members.email"),
+                        resultSet.getString("members.password"),
+                        Role.fromId(resultSet.getInt("members.role")),
+                        resultSet.getTimestamp("members.created_at"),
+                        resultSet.getTimestamp("members.updated_at")
                 ),
                 resultSet.getInt("width"),
                 resultSet.getInt("height"),

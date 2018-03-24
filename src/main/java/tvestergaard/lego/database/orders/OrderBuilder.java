@@ -8,16 +8,16 @@ public class OrderBuilder
     private int    width;
     private int    height;
     private int    depth;
-    private String specifications;
+    private String specification;
     private Status status;
 
-    public OrderBuilder(Member member, int width, int height, int depth, String specifications, Status status)
+    public OrderBuilder(Member member, int width, int height, int depth, String specification, Status status)
     {
         this.member = member;
         this.width = width;
         this.height = height;
         this.depth = depth;
-        this.specifications = specifications;
+        this.specification = specification;
         this.status = status;
     }
 
@@ -27,7 +27,7 @@ public class OrderBuilder
         this.width = order.getWidth();
         this.height = order.getHeight();
         this.depth = order.getDepth();
-        this.specifications = order.getSpecifications();
+        this.specification = order.getSpecification();
         this.status = order.getStatus();
     }
 
@@ -71,14 +71,14 @@ public class OrderBuilder
         this.depth = depth;
     }
 
-    public String getSpecifications()
+    public String getSpecification()
     {
-        return this.specifications;
+        return this.specification;
     }
 
-    public void setSpecifications(String specifications)
+    public void setSpecification(String specification)
     {
-        this.specifications = specifications;
+        this.specification = specification;
     }
 
     public Status getStatus()

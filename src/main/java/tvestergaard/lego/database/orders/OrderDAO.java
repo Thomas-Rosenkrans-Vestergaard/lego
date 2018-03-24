@@ -12,7 +12,7 @@ public interface OrderDAO
 
     Order select(int id) throws SQLException;
 
-    Order select(Member member) throws SQLException;
+    List<Order> select(Member member) throws SQLException;
 
     List<Order> select() throws SQLException;
 }

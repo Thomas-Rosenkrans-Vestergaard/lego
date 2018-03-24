@@ -4,6 +4,12 @@ import tvestergaard.lego.logic.geometry.Cube;
 import tvestergaard.lego.logic.geometry.Position;
 import tvestergaard.lego.logic.geometry.PositionedSquare;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static tvestergaard.lego.logic.building.BricklayerException.Reason;
+import static tvestergaard.lego.logic.building.BricklayerException.Reason.*;
+
 public class HalfPatternBricklayer implements Bricklayer
 {
 
@@ -24,20 +30,13 @@ public class HalfPatternBricklayer implements Bricklayer
      *
      * @param specifications The specifications for the {@link House} to build.
      * @return The {@link House} created from the provided {@link HouseSpecification}.
-     * @throws IllegalHouseDimensionsException When the dimensions of the provided {@link HouseSpecification} is invalid.
-     * @throws IllegalWindowException          When the placement of the {@link Window} specified in the provided
-     *                                         {@link HouseSpecification} is invalid.
-     * @throws IllegalDoorException            When the placement of the {@link Door} specified in the provided
-     *                                         {@link HouseSpecification} is invalid.
-     * @throws IllegalCollisionException       When the placement of the {@link Door} or {@link Window} specified in the provided
-     *                                         {@link HouseSpecification} collide.
+     * @throws BricklayerException When the provided {@link HouseSpecification} cannot be built.
      */
     @Override
-    public House lay(HouseSpecification specifications) throws IllegalHouseDimensionsException,
-                                                               IllegalWindowException,
-                                                               IllegalDoorException,
-                                                               IllegalCollisionException
+    public House lay(HouseSpecification specifications) throws BricklayerException
     {
+        validateSpecifications(specifications);
+
         Wall front = buildWall(specifications, Side.FRONT);
         Wall back  = buildWall(specifications, Side.BACK);
         Wall right = buildWall(specifications, Side.RIGHT);
@@ -51,80 +50,80 @@ public class HalfPatternBricklayer implements Bricklayer
                 specifications.window, front, back, right, left);
     }
 
-    public void validateSpecifications(HouseSpecification specification) throws
-                                                                         IllegalHouseDimensionsException,
-                                                                         IllegalWindowException,
-                                                                         IllegalDoorException,
-                                                                         IllegalCollisionException
+    public void validateSpecifications(HouseSpecification specification) throws BricklayerException
     {
+
+        List<Reason> reasons = new ArrayList<>();
 
         Cube dimensions = specification.getDimensions();
         if (dimensions.width < 4)
-            throw new IllegalHouseDimensionsException(IllegalHouseDimensionsException.Reason.WIDTH_LESS_THAN_4, specification);
-        if (dimensions.depth < 4)
-            throw new IllegalHouseDimensionsException(IllegalHouseDimensionsException.Reason.DEPTH_LESS_THAN_4, specification);
+            reasons.add(WIDTH_LESS_THAN_4);
         if (dimensions.height < 1)
-            throw new IllegalHouseDimensionsException(IllegalHouseDimensionsException.Reason.HEIGHT_LESS_THAN_1, specification);
+            reasons.add(HEIGHT_LESS_THAN_1);
+        if (dimensions.depth < 4)
+            reasons.add(DEPTH_LESS_THAN_4);
 
         if (specification.door != null)
-            validateDoor(specification);
+            validateDoor(specification, reasons);
 
         if (specification.window != null)
-            validateWindow(specification);
+            validateWindow(specification, reasons);
 
         if (specification.window != null && specification.dimensions != null)
             if (specification.window.overlaps(specification.door))
-                throw new IllegalCollisionException(specification);
+                reasons.add(DOOR_WINDOW_COLLISION);
+
+        if (!reasons.isEmpty()) {
+            throw new BricklayerException(specification, reasons);
+        }
     }
 
-    private void validateWindow(HouseSpecification specification) throws IllegalWindowException
-    {
-        Cube   houseDimensions = specification.dimensions;
-        Window window          = specification.window;
-
-        if (window.y < 1)
-            throw new IllegalWindowException(IllegalWindowException.Reason.POSITION_Y_LESS_THAN_1, specification);
-
-        if (window.x < 2)
-            throw new IllegalWindowException(IllegalWindowException.Reason.PLACEMENT_OUT_OF_BOUNDS_LEFT, specification);
-
-        int windowWallWidth = getWallWidth(houseDimensions, window.side);
-        if (window.x + window.width <= windowWallWidth - 2)
-            throw new IllegalWindowException(IllegalWindowException.Reason.PLACEMENT_OUT_OF_BOUNDS_RIGHT, specification);
-
-        if (window.height + window.y <= specification.dimensions.height)
-            throw new IllegalWindowException(IllegalWindowException.Reason.PLACEMENT_OUT_OF_BOUNDS_TOP, specification);
-
-        if (window.width < 1)
-            throw new IllegalWindowException(IllegalWindowException.Reason.DIMENSIONS_WIDTH_LESS_THAN_1, specification);
-
-        if (window.height < 1)
-            throw new IllegalWindowException(IllegalWindowException.Reason.DIMENSIONS_HEIGHT_LESS_THAN_1, specification);
-    }
-
-    private void validateDoor(HouseSpecification specification) throws IllegalDoorException
+    private void validateDoor(HouseSpecification specification, List<Reason> reasons)
     {
         Cube houseDimensions = specification.dimensions;
         Door door            = specification.door;
 
         if (door.y != 0)
-            throw new IllegalDoorException(IllegalDoorException.Reason.POSITION_Y_NOT_ZERO, specification);
-
-        if (door.x < 2)
-            throw new IllegalDoorException(IllegalDoorException.Reason.PLACEMENT_OUT_OF_BOUNDS_LEFT, specification);
-
-        int doorWallWidth = getWallWidth(houseDimensions, door.side);
-        if (door.x + door.width <= doorWallWidth - 2)
-            throw new IllegalDoorException(IllegalDoorException.Reason.PLACEMENT_OUT_OF_BOUNDS_RIGHT, specification);
-
-        if (door.height <= houseDimensions.height)
-            throw new IllegalDoorException(IllegalDoorException.Reason.PLACEMENT_OUT_OF_BOUNDS_TOP, specification);
+            reasons.add(DOOR_POSITION_Y_NOT_ZERO);
 
         if (door.width < 1)
-            throw new IllegalDoorException(IllegalDoorException.Reason.DIMENSIONS_WIDTH_LESS_THAN_1, specification);
+            reasons.add(DOOR_WIDTH_LESS_THAN_1);
 
         if (door.height < 1)
-            throw new IllegalDoorException(IllegalDoorException.Reason.DIMENSIONS_HEIGHT_LESS_THAN_1, specification);
+            reasons.add(DOOR_HEIGHT_LESS_THAN_1);
+
+        if (door.x < 2)
+            reasons.add(DOOR_OUT_OF_BOUNDS_LEFT);
+
+        if (door.x + door.width > getWallWidth(houseDimensions, door.side) - 2)
+            reasons.add(DOOR_OUT_OF_BOUNDS_RIGHT);
+
+        if (door.height > houseDimensions.height)
+            reasons.add(DOOR_OUT_OF_BOUNDS_TOP);
+    }
+
+    private void validateWindow(HouseSpecification specification, List<Reason> reasons)
+    {
+        Cube   houseDimensions = specification.dimensions;
+        Window window          = specification.window;
+
+        if (window.y < 1)
+            reasons.add(WINDOW_POSITION_Y_LESS_THAN_1);
+
+        if (window.width < 1)
+            reasons.add(WINDOW_WIDTH_LESS_THAN_1);
+
+        if (window.height < 1)
+            reasons.add(WINDOW_HEIGHT_LESS_THAN_1);
+
+        if (window.x < 2)
+            reasons.add(WINDOW_OUT_OF_BOUNDS_LEFT);
+
+        if (window.x + window.width > getWallWidth(houseDimensions, window.side) - 2)
+            reasons.add(WINDOW_OUT_OF_BOUNDS_RIGHT);
+
+        if (window.height + window.y > specification.dimensions.height)
+            reasons.add(WINDOW_OUT_OF_BOUNDS_TOP);
     }
 
     private int getWallWidth(Cube house, Side side)

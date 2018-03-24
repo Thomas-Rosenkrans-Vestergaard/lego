@@ -10,17 +10,17 @@ public class Order
     private final int    width;
     private final int    height;
     private final int    depth;
-    private final String specifications;
+    private final String specification;
     private final Status status;
 
-    public Order(int id, Member member, int width, int height, int depth, String specifications, Status status)
+    public Order(int id, Member member, int width, int height, int depth, String specification, Status status)
     {
         this.id = id;
         this.member = member;
         this.width = width;
         this.height = height;
         this.depth = depth;
-        this.specifications = specifications;
+        this.specification = specification;
         this.status = status;
     }
 
@@ -49,9 +49,9 @@ public class Order
         return this.depth;
     }
 
-    public String getSpecifications()
+    public String getSpecification()
     {
-        return this.specifications;
+        return this.specification;
     }
 
     public Status getStatus()

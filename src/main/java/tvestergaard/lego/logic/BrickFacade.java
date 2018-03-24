@@ -1,7 +1,6 @@
 package tvestergaard.lego.logic;
 
 import tvestergaard.lego.logic.building.*;
-import tvestergaard.lego.logic.building.IllegalHouseDimensionsException;
 import tvestergaard.lego.logic.geometry.Cube;
 
 public class BrickFacade
@@ -18,15 +17,9 @@ public class BrickFacade
      * @param window The {@link Window} to place in the {@link House} to build. When {@code null}, no {@link Window} is
      *               placed on the {@link House}.
      * @return The built {@link House}.
-     * @throws IllegalHouseDimensionsException When the dimensions of the house is considered illegal.
-     * @throws IllegalDoorException            When the {@link Door} to place on the house is considered illegal.
-     * @throws IllegalWindowException          When the {@link Window} to place on the house is considered illegal.
-     * @throws IllegalCollisionException       When the {@link Door} and {@link Window} overlap.
+     * @throws BricklayerException When the provided {@link HouseSpecification} cannot be built.
      */
-    public static House build(int width, int height, int depth, Door door, Window window) throws IllegalHouseDimensionsException,
-                                                                                                 IllegalDoorException,
-                                                                                                 IllegalWindowException,
-                                                                                                 IllegalCollisionException
+    public static House build(int width, int height, int depth, Door door, Window window) throws BricklayerException
     {
         HouseSpecification specification = new HouseSpecification(Cube.of(width, height, depth), door, window);
         Bricklayer         layer         = new HalfPatternBricklayer();

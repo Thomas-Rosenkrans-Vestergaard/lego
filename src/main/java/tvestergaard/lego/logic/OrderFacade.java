@@ -40,7 +40,7 @@ public class OrderFacade
         }
     }
 
-    public Order select(Member member) throws ApplicationException
+    public List<Order> select(Member member) throws ApplicationException
     {
         try {
             return dao.select(member);
