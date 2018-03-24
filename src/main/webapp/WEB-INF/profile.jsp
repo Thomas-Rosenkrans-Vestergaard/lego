@@ -49,4 +49,47 @@
         </ul>
     </div>
 </div>
+<div class="row">
+    <div class="col s12">
+        <h2>Orders</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Member email</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Depth</th>
+                <th>Specification</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:choose>
+                <c:when test="${not empty orders}">
+                    <c:forEach items="${orders}" var="order">
+                        <tr>
+                            <td><c:out value="${order.getId()}"/></td>
+                            <td><c:out value="${order.getWidth()}"/></td>
+                            <td><c:out value="${order.getHeight()}"/></td>
+                            <td><c:out value="${order.getDepth()}"/></td>
+                            <td><c:out value="${order.getSpecification()}"/></td>
+                            <td><c:out value="${order.getStatus()}"/></td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td colspan="6">You have placed no orders.</td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+            </tbody>
+        </table>
+    </div>
+</div>
 <%@ include file="include/bot.jspf" %>

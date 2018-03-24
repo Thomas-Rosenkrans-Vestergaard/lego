@@ -3,7 +3,7 @@ package tvestergaard.lego.database.orders;
 public enum Status
 {
     PLACED(0),
-    SENT(1);
+    SHIPPED(1);
 
     private final int code;
 

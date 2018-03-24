@@ -1,4 +1,9 @@
-package tvestergaard.lego.presentation;
+package tvestergaard.lego.presentation.servlets;
+
+import tvestergaard.lego.logic.OrderFacade;
+import tvestergaard.lego.presentation.Authentication;
+import tvestergaard.lego.presentation.Notifications;
+import tvestergaard.lego.presentation.Presentation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +15,8 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/profile")
 public class ProfileServlet extends HttpServlet
 {
+
+    private final OrderFacade orderFacade = new OrderFacade();
 
     /**
      * Shows the /profile page where members can see their profile information and view their previously placed orders.
@@ -32,6 +39,7 @@ public class ProfileServlet extends HttpServlet
         }
 
         req.setAttribute("member", authentication.getMember());
+        req.setAttribute("orders", orderFacade.select(authentication.getMember()));
         req.getRequestDispatcher("/WEB-INF/profile.jsp").forward(req, resp);
     }
 }

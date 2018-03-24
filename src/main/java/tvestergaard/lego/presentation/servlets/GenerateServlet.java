@@ -1,10 +1,13 @@
-package tvestergaard.lego.presentation;
+package tvestergaard.lego.presentation.servlets;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tvestergaard.lego.logic.BrickFacade;
 import tvestergaard.lego.logic.building.*;
 import tvestergaard.lego.logic.geometry.Position;
+import tvestergaard.lego.presentation.Notifications;
+import tvestergaard.lego.presentation.Parameters;
+import tvestergaard.lego.presentation.Presentation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,4 +1,7 @@
-package tvestergaard.lego.presentation;
+package tvestergaard.lego.presentation.servlets;
+
+import tvestergaard.lego.presentation.Authentication;
+import tvestergaard.lego.presentation.Presentation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

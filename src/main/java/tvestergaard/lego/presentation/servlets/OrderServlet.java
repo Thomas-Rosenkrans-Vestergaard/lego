@@ -1,4 +1,4 @@
-package tvestergaard.lego.presentation;
+package tvestergaard.lego.presentation.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
