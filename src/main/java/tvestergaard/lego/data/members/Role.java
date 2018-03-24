@@ -1,4 +1,4 @@
-package tvestergaard.lego.database.members;
+package tvestergaard.lego.data.members;
 
 /**
  * Represents the role of a {@link Member}.

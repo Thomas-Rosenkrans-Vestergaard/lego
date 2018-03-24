@@ -1,7 +1,7 @@
 package tvestergaard.lego.logic;
 
 import org.mindrot.jbcrypt.BCrypt;
-import tvestergaard.lego.database.members.*;
+import tvestergaard.lego.data.members.*;
 
 import java.sql.SQLException;
 

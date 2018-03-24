@@ -1,4 +1,4 @@
-package tvestergaard.lego.database.members;
+package tvestergaard.lego.data.members;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 

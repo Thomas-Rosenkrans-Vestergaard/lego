@@ -1,4 +1,4 @@
-package tvestergaard.lego.database.orders;
+package tvestergaard.lego.data.orders;
 
 /**
  * Represents the status of some {@link Order}.

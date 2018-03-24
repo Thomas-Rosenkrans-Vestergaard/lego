@@ -1,8 +1,8 @@
-package tvestergaard.lego.database.orders;
+package tvestergaard.lego.data.orders;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import tvestergaard.lego.database.members.Member;
-import tvestergaard.lego.database.members.Role;
+import tvestergaard.lego.data.members.Member;
+import tvestergaard.lego.data.members.Role;
 
 import java.sql.*;
 import java.util.ArrayList;

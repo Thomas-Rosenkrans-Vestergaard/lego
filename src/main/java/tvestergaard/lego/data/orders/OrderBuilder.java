@@ -1,6 +1,6 @@
-package tvestergaard.lego.database.orders;
+package tvestergaard.lego.data.orders;
 
-import tvestergaard.lego.database.members.Member;
+import tvestergaard.lego.data.members.Member;
 import tvestergaard.lego.logic.building.House;
 
 import java.sql.Timestamp;

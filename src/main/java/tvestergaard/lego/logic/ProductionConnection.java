@@ -1,8 +1,8 @@
 package tvestergaard.lego.logic;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import tvestergaard.lego.database.members.MemberDAO;
-import tvestergaard.lego.database.members.MysqlMemberDAO;
+import tvestergaard.lego.data.members.MemberDAO;
+import tvestergaard.lego.data.members.MysqlMemberDAO;
 
 public class ProductionConnection
 {

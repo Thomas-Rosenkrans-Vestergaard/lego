@@ -1,4 +1,4 @@
-package tvestergaard.lego.database.members;
+package tvestergaard.lego.data.members;
 
 import java.sql.Timestamp;
 import java.util.Objects;

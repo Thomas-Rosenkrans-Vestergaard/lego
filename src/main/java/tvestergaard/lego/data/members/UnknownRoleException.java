@@ -1,4 +1,4 @@
-package tvestergaard.lego.database.members;
+package tvestergaard.lego.data.members;
 
 /**
  * Thrown by {@link Role#fromId(int)} when a {@link Role} with the provided id does not exist.

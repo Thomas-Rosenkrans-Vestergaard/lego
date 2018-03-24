@@ -1,6 +1,6 @@
 package tvestergaard.lego.presentation;
 
-import tvestergaard.lego.database.members.Member;
+import tvestergaard.lego.data.members.Member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,8 +1,8 @@
 package tvestergaard.lego.presentation.servlets;
 
-import tvestergaard.lego.database.members.EmailCollisionException;
-import tvestergaard.lego.database.members.InvalidEmailException;
-import tvestergaard.lego.database.members.Member;
+import tvestergaard.lego.data.members.EmailCollisionException;
+import tvestergaard.lego.data.members.InvalidEmailException;
+import tvestergaard.lego.data.members.Member;
 import tvestergaard.lego.logic.MemberFacade;
 import tvestergaard.lego.logic.ProductionConnection;
 import tvestergaard.lego.presentation.Authentication;

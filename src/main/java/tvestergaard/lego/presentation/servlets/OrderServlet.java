@@ -1,7 +1,7 @@
 package tvestergaard.lego.presentation.servlets;
 
-import tvestergaard.lego.database.orders.OrderBuilder;
-import tvestergaard.lego.database.orders.Status;
+import tvestergaard.lego.data.orders.OrderBuilder;
+import tvestergaard.lego.data.orders.Status;
 import tvestergaard.lego.logic.BrickFacade;
 import tvestergaard.lego.logic.OrderFacade;
 import tvestergaard.lego.logic.building.*;

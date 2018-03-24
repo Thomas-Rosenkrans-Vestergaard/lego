@@ -1,9 +1,9 @@
 package tvestergaard.lego.logic;
 
-import tvestergaard.lego.database.members.Member;
-import tvestergaard.lego.database.orders.MysqlOrderDAO;
-import tvestergaard.lego.database.orders.Order;
-import tvestergaard.lego.database.orders.OrderBuilder;
+import tvestergaard.lego.data.members.Member;
+import tvestergaard.lego.data.orders.MysqlOrderDAO;
+import tvestergaard.lego.data.orders.Order;
+import tvestergaard.lego.data.orders.OrderBuilder;
 
 import java.util.List;
 

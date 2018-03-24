@@ -1,4 +1,4 @@
-package tvestergaard.lego.database.members;
+package tvestergaard.lego.data.members;
 
 /**
  * Thrown when attempting the provided {@link MemberBuilder#setEmail(String)} with an invalid email address.
