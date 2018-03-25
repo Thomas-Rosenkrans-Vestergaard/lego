@@ -33,11 +33,17 @@
                             <td><c:out value="${order.getDepth()}"/></td>
                             <td><c:out value="${order.getStatus()}"/></td>
                             <td>
-                                <form method="post">
-                                    <input type="hidden" name="id" value="${order.getId()}">
-                                    <input class="button-submit btn" type="submit"
-                                           value="MARK SENT" ${order.getShippedAt() != null ? 'disabled' : ''}>
-                                </form>
+                                <c:choose>
+                                    <c:when test="${order.getShippedAt() == null}">
+                                        <form method="post">
+                                            <input type="hidden" name="id" value="${order.getId()}">
+                                            <input class="button-submit btn" type="submit" value="MARK SENT">
+                                        </form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:out value="${order.getShippedAt()}"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </tr>
                     </c:forEach>

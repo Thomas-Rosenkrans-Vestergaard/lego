@@ -24,12 +24,11 @@ public class HalfOffsetBricklayer implements Bricklayer
     private static final int BRICK_SMALL  = 1;
     private static final int BRICK_WIDTH  = 2;
 
+    /**
+     * The offset of the brick currently being placed, from the 4-brick pattern. When the currentOffset is 2, a 2x2 brick
+     * should be placed as soon as possible to keep the 4-brick pattern.
+     */
     private int currentOffset = 0;
-
-    public HalfOffsetBricklayer()
-    {
-        currentOffset = 0;
-    }
 
     /**
      * Creates the {@link House} specified from the provided {@link HouseSpecification}.
@@ -56,11 +55,18 @@ public class HalfOffsetBricklayer implements Bricklayer
                 specifications.window, front, back, right, left);
     }
 
+    /**
+     * Validates the provided {@link HouseSpecification}.
+     *
+     * @param specification The {@link HouseSpecification} to validate the properties of.
+     * @throws BricklayerException When the provided {@link HouseSpecification} is not valid.
+     */
     public void validateSpecifications(HouseSpecification specification) throws BricklayerException
     {
 
         List<Reason> reasons = new ArrayList<>();
 
+        // Check minimum house dimensions
         Cube dimensions = specification.getDimensions();
         if (dimensions.width < 4)
             reasons.add(WIDTH_LESS_THAN_4);
@@ -69,21 +75,32 @@ public class HalfOffsetBricklayer implements Bricklayer
         if (dimensions.depth < 4)
             reasons.add(DEPTH_LESS_THAN_4);
 
+        // When present, validate door
         if (specification.door != null)
             validateDoor(specification, reasons);
 
+        // When present, validate window
         if (specification.window != null)
             validateWindow(specification, reasons);
 
+        // When present, check that the window and door does not overlap each other.
         if (specification.window != null && specification.dimensions != null)
             if (specification.window.overlaps(specification.door))
                 reasons.add(DOOR_WINDOW_COLLISION);
 
+        // Throw an exception if any reasons for failure were found
         if (!reasons.isEmpty()) {
             throw new BricklayerException(specification, reasons);
         }
     }
 
+    /**
+     * Validates the {@link Door} specified in the provided {@link HouseSpecification}.
+     *
+     * @param specification The {@link HouseSpecification} to validate the {@link Door} of.
+     * @param reasons       The list of {@link Reason}s why the validation would fail. This list is filled with {@link Reason}s
+     *                      why the {@link Door} is not valid.
+     */
     private void validateDoor(HouseSpecification specification, List<Reason> reasons)
     {
         Cube houseDimensions = specification.dimensions;
@@ -108,6 +125,13 @@ public class HalfOffsetBricklayer implements Bricklayer
             reasons.add(DOOR_OUT_OF_BOUNDS_TOP);
     }
 
+    /**
+     * Validates the {@link Window} of the provided {@link HouseSpecification}.
+     *
+     * @param specification The The {@link HouseSpecification} to validate the {@link Window} of.
+     * @param reasons       The list of {@link Reason}s why the validation failed. This list is filled with {@link Reason}s
+     *                      why the {@link Door} is not valid.
+     */
     private void validateWindow(HouseSpecification specification, List<Reason> reasons)
     {
         Cube   houseDimensions = specification.dimensions;
@@ -132,6 +156,13 @@ public class HalfOffsetBricklayer implements Bricklayer
             reasons.add(WINDOW_OUT_OF_BOUNDS_TOP);
     }
 
+    /**
+     * Returns the width of the provided {@link Side} of the provided house dimensions.
+     *
+     * @param house The dimensions of the house.
+     * @param side  The {@link Side} of the house, to return the width of.
+     * @return The width of the provided {@link Side} of the provided house dimensions.
+     */
     private int getWallWidth(Cube house, Side side)
     {
         if (side == Side.FRONT || side == Side.BACK)
@@ -143,6 +174,13 @@ public class HalfOffsetBricklayer implements Bricklayer
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Builds a {@link Wall} of the provided {@link HouseSpecification}.
+     *
+     * @param specifications The {@link HouseSpecification} to build a {@link Wall} from.
+     * @param side           The {@link Side} of the {@link HouseSpecification} {@link Wall} to build.
+     * @return The resulting {@link Wall}.
+     */
     private Wall buildWall(HouseSpecification specifications, Side side)
     {
         WallBuilder builder = new WallBuilder();
@@ -150,6 +188,7 @@ public class HalfOffsetBricklayer implements Bricklayer
 
         while (builder.getCurrentPointer().y < specifications.dimensions.height) {
 
+            // Ensure that the bricklayer starts at an offset of 2 bricks on odd rows.
             this.currentOffset = 0;
             int width = specifications.dimensions.width - BRICK_WIDTH;
             if (builder.getCurrentPointer().y % 2 != 0) {
@@ -182,10 +221,12 @@ public class HalfOffsetBricklayer implements Bricklayer
 
                 if (place(builder, BRICK_LARGE, width, side, specifications))
                     continue;
+
                 if (place(builder, BRICK_MEDIUM, width, side, specifications)) {
                     currentOffset += BRICK_MEDIUM;
                     continue;
                 }
+
                 if (place(builder, BRICK_SMALL, width, side, specifications)) {
                     currentOffset += BRICK_SMALL;
                     continue;
@@ -200,6 +241,16 @@ public class HalfOffsetBricklayer implements Bricklayer
         return builder.build();
     }
 
+    /**
+     * Places the provided {@code brick} on the provided {@link WallBuilder}.
+     *
+     * @param builder        The {@link WallBuilder} to place the provided {@code brick} on.
+     * @param brick          The size of the brick to place.
+     * @param width          The width of the wall being built.
+     * @param side           The {@link Side} of the {@link HouseSpecification} the brick is being placed on.
+     * @param specifications The {@link HouseSpecification} being built from.
+     * @return {@code true} if the provided {@code brick} could be placed.
+     */
     private boolean place(WallBuilder builder, int brick, int width, Side side, HouseSpecification specifications)
     {
         Position position = builder.getCurrentPointer();
