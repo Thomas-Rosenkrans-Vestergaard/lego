@@ -65,6 +65,7 @@
                 <th>Height</th>
                 <th>Depth</th>
                 <th>Status</th>
+                <th>Shipping date</th>
             </tr>
             </thead>
             <tbody>
@@ -72,12 +73,13 @@
                 <c:when test="${not empty orders}">
                     <c:forEach items="${orders}" var="order">
                         <tr>
-                            <td><c:out value="${order.getId()}"/></td>
+                            <td><a href="profile?order=${order.getId()}"><c:out value="${order.getId()}"/></a></td>
                             <td><c:out value="${order.getMember().getEmail()}"/></td>
                             <td><c:out value="${order.getWidth()}"/></td>
                             <td><c:out value="${order.getHeight()}"/></td>
                             <td><c:out value="${order.getDepth()}"/></td>
                             <td><c:out value="${order.getStatus()}"/></td>
+                            <td><c:out value="${order.getShippedAt() == null ? 'Not shipped' : order.getShippedAt()}"/></td>
                         </tr>
                     </c:forEach>
                 </c:when>

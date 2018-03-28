@@ -190,7 +190,7 @@ public class HalfOffsetBricklayer implements Bricklayer
 
             // Ensure that the bricklayer starts at an offset of 2 bricks on odd rows.
             this.currentOffset = 0;
-            int width = specifications.dimensions.width - BRICK_WIDTH;
+            int width = getWallWidth(specifications.dimensions, side) - BRICK_WIDTH;
             if (builder.getCurrentPointer().y % 2 != 0) {
                 builder.move(2);
                 width += BRICK_WIDTH;
@@ -200,33 +200,37 @@ public class HalfOffsetBricklayer implements Bricklayer
 
                 Position position = builder.getCurrentPointer();
 
+                // When the door is in the way, skip the distance of the door, and add the difference to the current offset.
                 if (specifications.door != null && !fits(1, position, side, specifications.door.side, specifications.door)) {
                     builder.move(specifications.door.width);
                     currentOffset = currentOffset + specifications.door.width % BRICK_LARGE;
                     continue;
                 }
 
+                // When the window is in the way, skip the distance of the window, and add the difference to the current offset.
                 if (specifications.window != null && !fits(1, position, side, specifications.window.side, specifications.window)) {
                     builder.move(specifications.window.width);
                     currentOffset = currentOffset + specifications.window.width % BRICK_LARGE;
                     continue;
                 }
 
-                if (currentOffset != 0) {
-                    if (place(builder, currentOffset, width, side, specifications)) {
-                        currentOffset = 0;
-                        continue;
-                    }
+                // When the current offset is not 0, place a brick of size currentOffset.
+                if (currentOffset != 0 && place(builder, currentOffset, width, side, specifications)) {
+                    currentOffset = 0;
+                    continue;
                 }
 
+                // If possible, place a large brick.
                 if (place(builder, BRICK_LARGE, width, side, specifications))
                     continue;
 
+                // If possible, place a medium brick.
                 if (place(builder, BRICK_MEDIUM, width, side, specifications)) {
                     currentOffset += BRICK_MEDIUM;
                     continue;
                 }
 
+                // If possible, place a small brick.
                 if (place(builder, BRICK_SMALL, width, side, specifications)) {
                     currentOffset += BRICK_SMALL;
                     continue;
@@ -268,6 +272,16 @@ public class HalfOffsetBricklayer implements Bricklayer
         return false;
     }
 
+    /**
+     * Checks if a brick of the provided size, placed at the provided position is blocked by the provided {@link PositionedSquare}.
+     *
+     * @param brick            The size of the brick.
+     * @param position         The position where the brick is to be placed.
+     * @param wallSide         The wall currently being built.
+     * @param areaSide         The size where the {@link PositionedSquare} is.
+     * @param positionedSquare The area being blocked.
+     * @return {@code true} if a brick of the provided size is not blocked.
+     */
     private boolean fits(int brick, Position position, Side wallSide, Side areaSide, PositionedSquare positionedSquare)
     {
         for (int l = 0; l < brick; l++) {

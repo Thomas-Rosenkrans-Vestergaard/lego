@@ -17,6 +17,26 @@ function renderWall(canvas, wall, width, height) {
     });
 }
 
+function populateTable(table, data) {
+    var onesRow = table.find('.ones-row');
+    var twosRow = table.find('.twos-row');
+    var foursRow = table.find('.fours-row');
+
+    populateRow(onesRow, data['front']['ones'], data['back']['ones'], data['left']['ones'], data['right']['ones'], data['ones']);
+    populateRow(twosRow, data['front']['twos'], data['back']['twos'], data['left']['twos'], data['right']['twos'], data['twos']);
+    populateRow(foursRow, data['front']['fours'], data['back']['fours'], data['left']['fours'], data['right']['fours'], data['fours']);
+}
+
+function populateRow(row, front, back, left, right, total) {
+    var tds = row.find('td');
+
+    tds[1].innerText = front;
+    tds[2].innerText = back;
+    tds[3].innerText = left;
+    tds[4].innerText = right;
+    tds[5].innerText = total;
+}
+
 /**
  * Returns a random hex color code.
  * @returns {string} The random hex color code.

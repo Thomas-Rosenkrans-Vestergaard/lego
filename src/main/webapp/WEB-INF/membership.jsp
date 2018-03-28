@@ -33,7 +33,7 @@
                     amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
             </div>
         </div>
-        <form class="row" action="membership" method="POST">
+        <form class="row" method="POST">
             <input type="hidden" name="action" value="login">
             <div class="input-field col s12">
                 <input type="email" id="login-email-input" class="validate" name="email" data-length="255" required>
@@ -63,7 +63,7 @@
                     amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
             </div>
         </div>
-        <form class="row" action="membership" method="POST">
+        <form class="row" method="POST">
             <input type="hidden" name="action" value="register">
             <div class="input-field col s12">
                 <input type="email" id="register-email-input" class="validate" name="email" data-length="255" required>

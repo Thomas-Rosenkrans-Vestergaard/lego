@@ -32,10 +32,12 @@ $(document).ready(function () {
             url: 'generate',
             data: $('#house-form').serialize(),
             success: [function (data) {
-                renderWall(document.getElementById('front-canvas'), data.front, data.width, data.height);
-                renderWall(document.getElementById('back-canvas'), data.back, data.width, data.height);
-                renderWall(document.getElementById('left-canvas'), data.left, data.depth, data.height);
-                renderWall(document.getElementById('right-canvas'), data.right, data.depth, data.height);
+                renderWall(document.getElementById('front-canvas'), data['front'], data['width'], data['height']);
+                renderWall(document.getElementById('back-canvas'), data['back'], data['width'], data['height']);
+                renderWall(document.getElementById('left-canvas'), data['left'], data['depth'], data['height']);
+                renderWall(document.getElementById('right-canvas'), data['right'], data['depth'], data['height']);
+                populateTable($("#bricks-table"), data);
+                $("#preview-row").show(500);
             }]
         });
 

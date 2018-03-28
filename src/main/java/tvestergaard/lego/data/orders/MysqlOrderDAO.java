@@ -134,7 +134,7 @@ public class MysqlOrderDAO implements OrderDAO
      */
     @Override public Order update(int id, OrderBuilder builder) throws SQLException
     {
-        String update = "UPDATE orders SET member = ?, width = ?, height = ?, depth = ?, specification = ?, shipped_at = ? WHERE id = ?";
+        String update = "UPDATE orders SET member = ?, width = ?, height = ?, depth = ?, specification = ?, shipped_at = ?, status = ? WHERE id = ?";
         try (Connection connection = source.getConnection();
              PreparedStatement statement = connection.prepareStatement(update, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, builder.getMember().getId());
@@ -143,7 +143,8 @@ public class MysqlOrderDAO implements OrderDAO
             statement.setInt(4, builder.getDepth());
             statement.setString(5, builder.getSpecification());
             statement.setTimestamp(6, builder.getShippedAt());
-            statement.setInt(7, id);
+            statement.setInt(7, builder.getStatus().getCode());
+            statement.setInt(8, id);
 
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();

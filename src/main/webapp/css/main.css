@@ -44,6 +44,7 @@ nav {
 
 #container {
     padding-left: 320px;
+    padding-bottom: 200px;
 }
 
 #navigation-trigger {
@@ -72,4 +73,12 @@ nav {
 
 p, a {
     line-height: 30px;
+}
+
+.preview-tab {
+    margin-top: 20px;
+}
+
+#preview-row {
+    display: none;
 }

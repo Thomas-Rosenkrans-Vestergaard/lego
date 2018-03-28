@@ -1,8 +1,12 @@
 package tvestergaard.lego.presentation.servlets;
 
+import tvestergaard.lego.data.orders.MysqlOrderDAO;
+import tvestergaard.lego.data.orders.Order;
 import tvestergaard.lego.logic.OrderFacade;
+import tvestergaard.lego.logic.ProductionConnection;
 import tvestergaard.lego.presentation.Authentication;
 import tvestergaard.lego.presentation.Notifications;
+import tvestergaard.lego.presentation.Parameters;
 import tvestergaard.lego.presentation.Presentation;
 
 import javax.servlet.ServletException;
@@ -16,7 +20,7 @@ import java.io.IOException;
 public class ProfileServlet extends HttpServlet
 {
 
-    private final OrderFacade orderFacade = new OrderFacade();
+    private final OrderFacade orderFacade = new OrderFacade(new MysqlOrderDAO(ProductionConnection.source()));
 
     /**
      * Shows the /profile page where members can see their profile information and view their previously placed orders.
@@ -31,10 +35,23 @@ public class ProfileServlet extends HttpServlet
     {
         Authentication authentication = new Authentication(req, resp);
         Notifications  notifications  = Presentation.notifications(req);
+        Parameters     parameters     = new Parameters(req);
 
         if (!authentication.isMember()) {
             notifications.error("You must be authenticated to access the profile page.");
             authentication.redirect("profile");
+            return;
+        }
+
+        if (parameters.isPresent("order")) {
+            Order order = orderFacade.select(parameters.getInt("order"));
+            if (order == null) {
+                resp.sendRedirect("home");
+                return;
+            }
+            req.setAttribute("order", order);
+            req.setAttribute("back", "profile");
+            req.getRequestDispatcher("/WEB-INF/order.jsp").forward(req, resp);
             return;
         }
 

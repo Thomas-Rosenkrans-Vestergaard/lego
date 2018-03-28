@@ -21,7 +21,7 @@
             porttitor, facilisis luctus, metus</p>
     </div>
 </div>
-<form class="row section" id="house-form" action="order" method="POST">
+<form class="row section" id="house-form" method="POST">
     <div class="row">
         <div class="col s12">
             <h4>Dimensions</h4>
@@ -29,7 +29,8 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <p>The dimensions of the lego house. The width and depth are measured in dots, whereas the height is meassured in bricks.</p>
+            <p>The dimensions of the lego house. The width and depth are measured in dots, whereas the height is
+                meassured in bricks.</p>
         </div>
     </div>
     <div class="row">
@@ -202,13 +203,68 @@
             </button>
         </div>
     </div>
-    <h4>Front</h4>
-    <canvas width="10024px" class="house-canvas" id="front-canvas"></canvas>
-    <h4>Back</h4>
-    <canvas width="10024px" class="house-canvas" id="back-canvas"></canvas>
-    <h4>Left</h4>
-    <canvas width="10024px" class="house-canvas" id="left-canvas"></canvas>
-    <h4>Right</h4>
-    <canvas width="10024px" class="house-canvas" id="right-canvas"></canvas>
 </form>
+<div id="preview-row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s2"><a href="#bricks">Bricks</a></li>
+            <li class="tab col s2"><a href="#front">Front</a></li>
+            <li class="tab col s2"><a href="#back">Back</a></li>
+            <li class="tab col s2"><a href="#left">Left</a></li>
+            <li class="tab col s2"><a href="#right">Right</a></li>
+        </ul>
+    </div>
+    <div id="bricks" class="col s12 preview-tab">
+        <table id="bricks-table">
+            <thead>
+            <tr>
+                <th>Brick</th>
+                <th>Front</th>
+                <th>Back</th>
+                <th>Left</th>
+                <th>Right</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="ones-row">
+                <td>1x2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="twos-row">
+                <td>2x2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="fours-row">
+                <td>4x2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="front" class="col s12 preview-tab">
+        <canvas width="10024px" class="house-canvas" id="front-canvas"></canvas>
+    </div>
+    <div id="back" class="col s12 preview-tab">
+        <canvas width="10024px" class="house-canvas" id="back-canvas"></canvas>
+    </div>
+    <div id="left" class="col s12 preview-tab">
+        <canvas width="10024px" class="house-canvas" id="left-canvas"></canvas>
+    </div>
+    <div id="right" class="col s12 preview-tab">
+        <canvas width="10024px" class="house-canvas" id="right-canvas"></canvas>
+    </div>
+</div>
 <%@ include file="include/bot.jspf" %>
