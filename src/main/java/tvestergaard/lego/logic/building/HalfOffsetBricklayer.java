@@ -84,7 +84,7 @@ public class HalfOffsetBricklayer implements Bricklayer
             validateWindow(specification, reasons);
 
         // When present, check that the window and door does not overlap each other.
-        if (specification.window != null && specification.dimensions != null)
+        if (specification.window != null && specification.door != null)
             if (specification.window.overlaps(specification.door))
                 reasons.add(DOOR_WINDOW_COLLISION);
 
