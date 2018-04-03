@@ -1,3 +1,5 @@
+Mit projeekt kan måske ikke åbnes i netbeans, uden en extension.
+
 Users:
 
 | Email                   	| Password 	| Role          	|
